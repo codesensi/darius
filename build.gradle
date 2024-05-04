@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.baomidou:mybatis-plus-spring-boot3-starter:3.5.5'
     implementation 'com.baomidou:mybatis-plus-generator:3.5.5'
     implementation 'org.springframework.boot:spring-boot-starter-freemarker:3.2.1'
+    implementation 'com.alibaba:druid-spring-boot-3-starter:1.2.21'
 }
 
 tasks.named('test') {
