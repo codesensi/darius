@@ -1,0 +1,27 @@
+# knife4j增强配置
+knife4j:
+  # 是否开启生产环境保护策略
+  production: true
+
+# 数据库连接配置
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.2.101:3306/darius_pro?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: darius_pro
+    password: darius_pro_kE29mT
+    hikari:
+      # 客户端从连接池等待连接的最大毫秒数
+      connection-timeout: 20000
+      # 连接池中维护的最小空闲连接数
+      minimum-idle: 5
+      # 最大连接池数大小
+      maximum-pool-size: 20
+      # 允许一个连接在连接池中闲置的最大毫秒数
+      idle-timeout: 300000
+      # 池中连接关闭后的最长生存毫秒数
+      max-lifetime: 1200000
+      # 从池中返回的连接的默认自动提交行为
+      auto-commit: true
+

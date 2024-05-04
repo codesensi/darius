@@ -1,0 +1,64 @@
+server:
+  port: 8080
+  # 开启优雅停机
+  shutdown: graceful
+
+spring:
+  application:
+    name: darius
+  profiles:
+    active: dev
+  lifecycle:
+    # 优雅停机最大等待时间
+    timeout-per-shutdown-phase: 60s
+
+# logback日志配置
+logging:
+  level:
+    cn.codesensi.darius: trace # trace级别可打印sql结果
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS
+  file:
+    name: logs/${spring.application.name}_${spring.profiles.active}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${logging.file.name}.%d.%i.log
+      max-file-size: 100MB
+      max-history: 180
+
+# 项目api文档访问地址：http://localhost:8080/doc.html
+# springdoc-openapi项目配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /v3/api-docs-ui
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: cn.codesensi.darius
+# knife4j增强配置
+knife4j:
+  enable: true
+  setting:
+    # 是否显示界面中SwaggerModel功能
+    enable-swagger-models: false
+    # 是否显示界面中"文档管理"功能
+    enable-document-manage: false
+    # 调试Tab是否显示AfterScript功能,默认开启
+    enable-after-script: false
+    # 是否显示OpenAPI规范
+    enable-open-api: false
+    # 开启动态请求参数
+    enable-dynamic-parameter: true
+
+# mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml # MyBatis Mapper 所对应的 XML 文件位置
+  global-config:
+    db-config:
+      id-type: assign_id # 全局默认主键(雪花id)
+      logic-delete-field: deleteFlag # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值
+      update-strategy: not_null # update时的字段验证策略(null字段不更新数据库)
