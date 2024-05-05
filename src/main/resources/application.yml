@@ -62,3 +62,12 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值
       logic-not-delete-value: 0 # 逻辑未删除值
       update-strategy: not_null # update时的字段验证策略(null字段不更新数据库)
+
+# mica-xss配置
+mica:
+  xss:
+    enabled: true
+    trim-text: true
+    mode: escape
+    path-patterns: /**
+    path-exclude-patterns:
