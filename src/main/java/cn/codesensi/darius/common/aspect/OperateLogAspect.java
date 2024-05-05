@@ -1,11 +1,16 @@
 package cn.codesensi.darius.common.aspect;
 
 import cn.codesensi.darius.common.annotation.OperateLog;
+import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.util.IpUtil;
+import cn.codesensi.darius.system.entity.SysOperateLog;
+import cn.codesensi.darius.system.service.ISysOperateLogService;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -34,6 +39,9 @@ import java.util.Optional;
 @Aspect
 @Component
 public class OperateLogAspect {
+
+    @Resource
+    private ISysOperateLogService sysOperateLogService;
 
     /**
      * 请求唯一id的key
@@ -69,26 +77,36 @@ public class OperateLogAspect {
     @Before("doPointcut()")
     public void doBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String requestId = IdUtil.getSnowflakeNextIdStr();
         Optional.ofNullable(attributes).ifPresent(o -> {
             log.info("====================请求接口开始start====================");
+            String requestId = IdUtil.getSnowflakeNextIdStr();
+            // 操作日志对象类
+            SysOperateLog sysOperateLog = new SysOperateLog();
+            sysOperateLog.setId(Long.valueOf(requestId));
             MDC.put(KEY_REQUEST_ID, requestId);
             log.info("|--[前置通知]存放请求唯一id：{}", requestId);
             start = System.currentTimeMillis();
             HttpServletRequest request = o.getRequest();
             Signature signature = joinPoint.getSignature();
-            log.info("|--开始时间：{}", LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.NORM_DATETIME_MS_PATTERN));
-            String ipAddr = IpUtil.getIpAddr(request);
-            log.info("|--请求IP：{}", ipAddr);
-            log.info("|--请求接口：{}", request.getRequestURL());
+            LocalDateTime requestTime = LocalDateTime.now();
+            log.info("|--开始时间：{}", LocalDateTimeUtil.format(requestTime, DatePattern.NORM_DATETIME_MS_PATTERN));
+            String requestIp = IpUtil.getIpAddr(request);
+            log.info("|--请求IP：{}", requestIp);
+            StringBuffer requestUrl = request.getRequestURL();
+            log.info("|--请求接口：{}", requestUrl);
             // 注解日志
             OperateLog annotationLog = getAnnotationLog(joinPoint);
             Optional.ofNullable(annotationLog).ifPresent(l -> {
                 log.info("|--操作类型：{}", l.operateType().getMessage());
                 log.info("|--操作描述：{}", l.description());
+                sysOperateLog.setOperateType(l.operateType().getCode());
+                sysOperateLog.setOperateMessage(l.operateType().getMessage());
+                sysOperateLog.setOperateDescription(l.description());
             });
-            log.info("|--请求方法：{}.{}", signature.getDeclaringTypeName(), signature.getName());
-            log.info("|--请求方式：{}", request.getMethod());
+            String requestMethod = StrUtil.join(".", signature.getDeclaringTypeName(), signature.getName());
+            log.info("|--请求方法：{}", requestMethod);
+            String requestMode = request.getMethod();
+            log.info("|--请求方式：{}", requestMode);
             // 组织请求参数 key-value
             String[] names = ((CodeSignature) signature).getParameterNames();
             Object[] values = joinPoint.getArgs();
@@ -96,8 +114,19 @@ public class OperateLogAspect {
             for (int i = 0; i < names.length; i++) {
                 paramsMap.put(names[i], values[i]);
             }
-            log.info("|--请求参数：{}", JSONUtil.toJsonStr(paramsMap));
+            String requestParam = JSONUtil.toJsonStr(paramsMap);
+            log.info("|--请求参数：{}", requestParam);
             log.info("====================请求接口开始end====================");
+            // 保存日志到数据库
+            log.info("====================保存请求日志到数据库====================");
+            sysOperateLog.setRequestTime(requestTime);
+            sysOperateLog.setRequestIp(requestIp);
+            sysOperateLog.setRequestUrl(requestUrl.toString());
+            sysOperateLog.setRequestMethod(requestMethod);
+            sysOperateLog.setRequestMode(requestMode);
+            sysOperateLog.setRequestParam(requestParam);
+            // TODO 操作人 sysOperateLog.setCreator(null);
+            sysOperateLogService.save(sysOperateLog);
         });
     }
 
@@ -111,13 +140,26 @@ public class OperateLogAspect {
             log.info("====================请求接口结束start====================");
             String requestId = MDC.get(KEY_REQUEST_ID);
             log.info("|--[返回通知]获取请求唯一id：{}", requestId);
+            // 操作日志对象类
+            SysOperateLog sysOperateLog = new SysOperateLog();
+            sysOperateLog.setId(Long.valueOf(requestId));
             // 方法结束时间戳
             end = System.currentTimeMillis();
-            log.info("|--结束时间：{}", LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.NORM_DATETIME_MS_PATTERN));
-            log.info("|--请求耗时：{}ms", (end - start));
+            LocalDateTime responseTime = LocalDateTime.now();
+            log.info("|--结束时间：{}", LocalDateTimeUtil.format(responseTime, DatePattern.NORM_DATETIME_MS_PATTERN));
+            Long responseConsume = end - start;
+            log.info("|--请求耗时：{}ms", responseConsume);
             // 返回内容
-            log.info("|--请求返回：{}", JSONUtil.toJsonStr(returning));
+            String responseResult = JSONUtil.toJsonStr(returning);
+            log.info("|--请求返回：{}", responseResult);
             log.info("====================请求接口结束end====================");
+            log.info("====================根据请求唯一id更新响应日志到数据库====================");
+            sysOperateLog.setResponseState(Constant.ONE_INT);
+            sysOperateLog.setResponseTime(responseTime);
+            sysOperateLog.setResponseConsume(responseConsume);
+            sysOperateLog.setResponseResult(responseResult);
+            // TODO 更新人 sysOperateLog.setUpdater(null);
+            sysOperateLogService.updateById(sysOperateLog);
         });
     }
 
@@ -131,6 +173,9 @@ public class OperateLogAspect {
             log.error("====================请求接口异常start====================");
             String requestId = MDC.get(KEY_REQUEST_ID);
             log.info("|--[异常通知]获取请求唯一id：{}", requestId);
+            // 操作日志对象类
+            SysOperateLog sysOperateLog = new SysOperateLog();
+            sysOperateLog.setId(Long.valueOf(requestId));
             HttpServletRequest request = o.getRequest();
             String ipAddr = IpUtil.getIpAddr(request);
             log.error("|--请求IP：{}", ipAddr);
@@ -141,9 +186,16 @@ public class OperateLogAspect {
                 log.error("|--操作类型：{}", l.operateType().getMessage());
                 log.error("|--操作描述：{}", l.description());
             });
-            log.error("|--异常时间：{}", LocalDateTimeUtil.format(LocalDateTime.now(), DatePattern.NORM_DATETIME_MS_PATTERN));
-            log.error("|--异常原因：{}", throwable.getMessage());
+            LocalDateTime errorTime = LocalDateTime.now();
+            log.error("|--异常时间：{}", LocalDateTimeUtil.format(errorTime, DatePattern.NORM_DATETIME_MS_PATTERN));
+            String errorReason = throwable.getMessage();
+            log.error("|--异常原因：{}", errorReason);
             log.error("====================请求接口异常end====================");
+            log.info("====================根据请求唯一id更新异常日志到数据库====================");
+            sysOperateLog.setErrorTime(errorTime);
+            sysOperateLog.setErrorReason(errorReason);
+            // TODO 更新人 sysOperateLog.setUpdater(null);
+            sysOperateLogService.updateById(sysOperateLog);
         });
     }
 
