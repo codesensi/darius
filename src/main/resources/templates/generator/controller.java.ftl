@@ -131,8 +131,9 @@ public class ${table.controllerName} {
                                     @ParameterObject ${entity} ${table.entityPath}) {
         Page<${entity}> page = new Page<>(current, size);
         return ${table.entityPath}Service.lambdaQuery()
-            // TODO 组织条件,例:.eq(ObjUtil.isNotNull(${table.entityPath}.getId()), ${entity}::getId, ${table.entityPath}.getId())
+            // TODO 组织条件
             .eq(ObjUtil.isNotNull(${table.entityPath}.getId()), ${entity}::getId, ${table.entityPath}.getId())
+            .orderByDesc(${entity}::getCreateTime)
             .page(page);
     }
 
