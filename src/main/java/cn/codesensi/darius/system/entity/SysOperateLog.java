@@ -2,6 +2,7 @@ package cn.codesensi.darius.system.entity;
 
 import cn.codesensi.darius.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -56,6 +57,7 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 请求时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "请求时间")
     private LocalDateTime requestTime;
 
@@ -98,6 +100,7 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 正常响应时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "正常响应时间")
     private LocalDateTime responseTime;
 
@@ -116,6 +119,7 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 异常响应时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "异常响应时间")
     private LocalDateTime errorTime;
 
