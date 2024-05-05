@@ -132,7 +132,7 @@ public class ${table.controllerName} {
         Page<${entity}> page = new Page<>(current, size);
         return ${table.entityPath}Service.lambdaQuery()
             // TODO 组织条件,例:.eq(ObjUtil.isNotNull(${table.entityPath}.getId()), ${entity}::getId, ${table.entityPath}.getId())
-            .eq(ObjUtil.isNotNull(sysUser.getId()), SysUser::getId, sysUser.getId())
+            .eq(ObjUtil.isNotNull(${table.entityPath}.getId()), ${entity}::getId, ${table.entityPath}.getId())
             .page(page);
     }
 
