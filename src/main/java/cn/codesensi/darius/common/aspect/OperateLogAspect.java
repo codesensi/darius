@@ -49,6 +49,11 @@ public class OperateLogAspect {
     private final String KEY_REQUEST_ID = "requestId";
 
     /**
+     * 响应结果内容最大长度
+     */
+    private final Integer MAX_RESPONSE_RESULT_LENGTH = 10000;
+
+    /**
      * 请求开始时间戳
      */
     private Long start;
@@ -151,6 +156,9 @@ public class OperateLogAspect {
             log.info("|--请求耗时：{}ms", responseConsume);
             // 返回内容
             String responseResult = JSONUtil.toJsonStr(returning);
+            if (responseResult.length() > MAX_RESPONSE_RESULT_LENGTH) {
+                responseResult = "响应结果内容过长，已忽略";
+            }
             log.info("|--请求返回：{}", responseResult);
             log.info("====================请求接口结束end====================");
             log.info("====================根据请求唯一id更新响应日志到数据库====================");
