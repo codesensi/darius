@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.config;
+package cn.codesensi.darius;
 
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.properties.DBProperties;
