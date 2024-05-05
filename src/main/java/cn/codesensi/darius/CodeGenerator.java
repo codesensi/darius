@@ -28,7 +28,7 @@ public class CodeGenerator {
     private static final String AUTHOR = "codesensi"; // *作者
     private static final String PARENT = "cn.codesensi.darius"; // *父包名
     private static final String MODULE_NAME = "system"; // *父包模块名
-    private static final String TABLE_NAMES = "sys_menu,sys_permission,sys_role,sys_role_menu,sys_role_permission,sys_user,sys_user_role"; // *需要生成的表名,多张表用英文逗号分隔
+    private static final String TABLE_NAMES = "sys_operate_log,sys_menu,sys_permission,sys_role,sys_role_menu,sys_role_permission,sys_user,sys_user_role"; // *需要生成的表名,多张表用英文逗号分隔
     private static final String[] TABLE_PREFIX = {"t_", "c_"}; // *过滤表前缀
     // *********************************************************以下部分不建议修改********************************************************************************
     private static final String OUTPUT_DIR = "src\\main\\java"; // 输出目录
@@ -55,7 +55,8 @@ public class CodeGenerator {
                 })
                 .dataSourceConfig(builder -> builder.typeConvertHandler((globalConfig, typeRegistry, metaInfo) -> {
                     int typeCode = metaInfo.getJdbcType().TYPE_CODE;
-                    if (typeCode == Types.SMALLINT || typeCode == Types.TINYINT) {
+                    // TODO 数据库为tinyint，但此处获取到的是bit，原因未知，后续再详究
+                    if (typeCode == Types.SMALLINT || typeCode == Types.TINYINT || typeCode == Types.BIT) {
                         // 自定义类型转换
                         return DbColumnType.INTEGER;
                     }
