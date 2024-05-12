@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 权限信息表 实体类
  *
  * @author codesensi
- * @since 2024-05-05 19:17:53
+ * @since 2024-05-12 19:57:32
  */
 @Data
 @Accessors(chain = true)

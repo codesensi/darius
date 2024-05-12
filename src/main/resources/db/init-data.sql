@@ -7,27 +7,29 @@ SET FOREIGN_KEY_CHECKS = 0;
 CREATE TABLE IF NOT EXISTS `sys_operate_log`
 (
     `id`                  bigint NOT NULL COMMENT '日志ID',
-    `operate_type`        tinyint(1)   DEFAULT NULL COMMENT '操作类型:0-未知,1-登录,2-登出,3-新增,4-更新,5-查询,6-删除',
-    `operate_message`     varchar(64)  DEFAULT NULL COMMENT '操作类型说明',
-    `operate_description` varchar(256) DEFAULT NULL COMMENT '操作描述',
-    `request_time`        datetime     DEFAULT NULL COMMENT '请求时间',
-    `request_ip`          varchar(64)  DEFAULT NULL COMMENT '请求IP',
-    `request_url`         varchar(256) DEFAULT NULL COMMENT '请求接口',
-    `request_method`      varchar(256) DEFAULT NULL COMMENT '请求方法',
-    `request_mode`        varchar(64)  DEFAULT NULL COMMENT '请求方式',
-    `request_param`       text         DEFAULT NULL COMMENT '请求参数',
-    `response_state`      tinyint(1)   DEFAULT NULL COMMENT '响应状态:0-异常,1-正常',
-    `response_time`       datetime     DEFAULT NULL COMMENT '正常响应时间',
-    `response_consume`    bigint       DEFAULT NULL COMMENT '响应耗时:单位毫秒',
-    `response_result`     text         DEFAULT NULL COMMENT '响应结果',
-    `error_time`          datetime     DEFAULT NULL COMMENT '异常响应时间',
-    `error_reason`        text         DEFAULT NULL COMMENT '异常原因',
-    `creator`             bigint       DEFAULT NULL COMMENT '创建人',
-    `create_time`         datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `updater`             bigint       DEFAULT NULL COMMENT '更新人',
-    `update_time`         datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `delete_flag`         tinyint(1)   DEFAULT '0' COMMENT '删除标志:0-未删除,1-已删除',
-    `version`             int          DEFAULT '0' COMMENT '乐观锁版本号',
+    `operate_type`        tinyint(1)    DEFAULT NULL COMMENT '操作类型:0-未知,1-登录,2-登出,3-新增,4-更新,5-查询,6-删除',
+    `operate_message`     varchar(64)   DEFAULT NULL COMMENT '操作类型说明',
+    `operate_description` varchar(256)  DEFAULT NULL COMMENT '操作描述',
+    `request_time`        datetime      DEFAULT NULL COMMENT '请求时间',
+    `request_ip`          varchar(64)   DEFAULT NULL COMMENT '请求IP',
+    `request_area`        varchar(256)  DEFAULT NULL COMMENT '请求地区',
+    `request_ua`          varchar(512)  DEFAULT NULL COMMENT '请求浏览器UA',
+    `request_url`         varchar(256)  DEFAULT NULL COMMENT '请求接口',
+    `request_method`      varchar(256)  DEFAULT NULL COMMENT '请求方法',
+    `request_mode`        varchar(64)   DEFAULT NULL COMMENT '请求方式',
+    `request_param`       text          DEFAULT NULL COMMENT '请求参数',
+    `response_state`      tinyint(1)    DEFAULT NULL COMMENT '响应状态:0-异常,1-正常',
+    `response_time`       datetime      DEFAULT NULL COMMENT '正常响应时间',
+    `response_consume`    bigint        DEFAULT NULL COMMENT '响应耗时:单位毫秒',
+    `response_data`       varchar(2048) DEFAULT NULL COMMENT '响应数据',
+    `error_time`          datetime      DEFAULT NULL COMMENT '异常响应时间',
+    `error_message`       varchar(2048) DEFAULT NULL COMMENT '异常信息',
+    `creator`             bigint        DEFAULT NULL COMMENT '创建人',
+    `create_time`         datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater`             bigint        DEFAULT NULL COMMENT '更新人',
+    `update_time`         datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `delete_flag`         tinyint(1)    DEFAULT '0' COMMENT '删除标志:0-未删除,1-已删除',
+    `version`             int           DEFAULT '0' COMMENT '乐观锁版本号',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -153,8 +155,17 @@ CREATE TABLE IF NOT EXISTS `sys_role_permission`
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = DYNAMIC COMMENT ='角色权限关联表';
 
-INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `state`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1787092605400576001, 'admin', '$2a$10$1iJsURpK0FkRIhMYQRO6K.QUOc7BzbyCHqFOl3MpBjYOZhraTtvim', '管理员', NULL, NULL, NULL, 0, NULL, 0, 0, NULL, NULL, '2024-05-05 20:14:05', NULL, '2024-05-05 20:14:05', 0, 0);
-INSERT INTO `sys_role` (`id`, `name`, `description`, `pid`, `state`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1787093585445844001, 'admin', '管理员', 0, 0, NULL, NULL, '2024-05-05 20:15:43', NULL, '2024-05-05 20:15:43', 0, 0);
-INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1787094019136884001, 1787092605400576001, 1787093585445844001, NULL, '2024-05-05 20:16:43', NULL, '2024-05-05 20:16:43', 0, 0);
+INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`,
+                        `state`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`)
+VALUES (1787092605400576001, 'admin', '$2a$10$1iJsURpK0FkRIhMYQRO6K.QUOc7BzbyCHqFOl3MpBjYOZhraTtvim', '管理员', NULL,
+        NULL, NULL, 0, NULL, 0, 0, NULL, NULL, '2024-05-05 20:14:05', NULL, '2024-05-05 20:14:05', 0, 0);
+INSERT INTO `sys_role` (`id`, `name`, `description`, `pid`, `state`, `remark`, `creator`, `create_time`, `updater`,
+                        `update_time`, `delete_flag`, `version`)
+VALUES (1787093585445844001, 'admin', '管理员', 0, 0, NULL, NULL, '2024-05-05 20:15:43', NULL, '2024-05-05 20:15:43', 0,
+        0);
+INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `creator`, `create_time`, `updater`, `update_time`,
+                             `delete_flag`, `version`)
+VALUES (1787094019136884001, 1787092605400576001, 1787093585445844001, NULL, '2024-05-05 20:16:43', NULL,
+        '2024-05-05 20:16:43', 0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

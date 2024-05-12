@@ -2,7 +2,6 @@ package cn.codesensi.darius.system.entity;
 
 import cn.codesensi.darius.common.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
  * 操作日志表 实体类
  *
  * @author codesensi
- * @since 2024-05-05 14:27:31
+ * @since 2024-05-12 19:57:32
  */
 @Data
 @Accessors(chain = true)
@@ -57,7 +56,6 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 请求时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "请求时间")
     private LocalDateTime requestTime;
 
@@ -66,6 +64,18 @@ public class SysOperateLog extends BaseEntity implements Serializable {
      */
     @Schema(description = "请求IP")
     private String requestIp;
+
+    /**
+     * 请求地区
+     */
+    @Schema(description = "请求地区")
+    private String requestArea;
+
+    /**
+     * 请求浏览器UA
+     */
+    @Schema(description = "请求浏览器UA")
+    private String requestUa;
 
     /**
      * 请求接口
@@ -100,7 +110,6 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 正常响应时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "正常响应时间")
     private LocalDateTime responseTime;
 
@@ -111,21 +120,20 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     private Long responseConsume;
 
     /**
-     * 响应结果
+     * 响应数据
      */
-    @Schema(description = "响应结果")
-    private String responseResult;
+    @Schema(description = "响应数据")
+    private String responseData;
 
     /**
      * 异常响应时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Schema(description = "异常响应时间")
     private LocalDateTime errorTime;
 
     /**
-     * 异常原因
+     * 异常信息
      */
-    @Schema(description = "异常原因")
-    private String errorReason;
+    @Schema(description = "异常信息")
+    private String errorMessage;
 }

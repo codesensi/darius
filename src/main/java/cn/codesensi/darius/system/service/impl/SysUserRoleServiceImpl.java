@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 用户角色关联表 服务实现类
  *
  * @author codesensi
- * @since 2024-05-05 19:17:53
+ * @since 2024-05-12 19:57:32
  */
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {

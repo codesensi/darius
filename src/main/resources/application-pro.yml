@@ -79,3 +79,22 @@ spring:
         allow: 127.0.0.1
         # IP黑名单（共同存在时，deny优先于allow）
         deny:
+# 线程池配置
+thread:
+  pool:
+    # 设置核心线程数
+    core-pool-size: 5
+    # 设置最大线程数
+    max-pool-size: 20
+    # 设置缓冲队列大小
+    queue-capacity: 100
+    # 设置线程的最大空闲秒数
+    keep-alive-seconds: 30
+    # 是否允许核心线程超时
+    allow-core-thread-timeout: true
+    # 是否等待剩余任务完成后才关闭应用
+    wait-for-tasks-to-complete-on-shutdown: true
+    # 等待剩余任务完成的最大秒数
+    await-termination-seconds: 60
+    # 拒绝策略
+    rejected-execution-handler: CallerRunsPolicy

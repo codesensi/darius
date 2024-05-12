@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 </#if>
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
-import cn.codesensi.darius.common.enums.OperateTypeEnum;
+import cn.codesensi.darius.common.enums.OperateType;
 import ${package.Entity}.${entity};
 import org.springdoc.core.annotations.ParameterObject;
 import jakarta.annotation.Resource;
@@ -61,7 +61,7 @@ public class ${table.controllerName} {
      *
      * @param ${table.entityPath} 实体类
      */
-    @OperateLog(operateType = OperateTypeEnum.INSERT, description = "新增一条${table.entityPath}数据")
+    @OperateLog(operateType = OperateType.INSERT, description = "新增一条${table.entityPath}数据")
 <#if springdoc>
     @ApiOperationSupport(order = 1)
     @Operation(summary = "新增")
@@ -76,7 +76,7 @@ public class ${table.controllerName} {
      *
      * @param id 主键id
      */
-    @OperateLog(operateType = OperateTypeEnum.DELETE, description = "根据id删除一条${table.entityPath}数据")
+    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条${table.entityPath}数据")
 <#if springdoc>
     @ApiOperationSupport(order = 2)
     @Operation(summary = "删除")
@@ -92,7 +92,7 @@ public class ${table.controllerName} {
      *
      * @param ${table.entityPath} 实体类
      */
-    @OperateLog(operateType = OperateTypeEnum.UPDATE, description = "根据id更新一条${table.entityPath}数据")
+    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条${table.entityPath}数据")
 <#if springdoc>
     @ApiOperationSupport(order = 3)
     @Operation(summary = "更新")
@@ -116,7 +116,7 @@ public class ${table.controllerName} {
      * @param ${table.entityPath} 实体类
      * @return PageInfo<${entity}> 分页对象
      */
-    @OperateLog(operateType = OperateTypeEnum.QUERY, description = "条件查询${table.entityPath}分页列表")
+    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询${table.entityPath}分页列表", isSaveResponseData = false)
 <#if springdoc>
     @ApiOperationSupport(order = 4)
     @Operation(summary = "分页列表")
@@ -143,7 +143,7 @@ public class ${table.controllerName} {
      * @param id 主键id
      * @return ${entity} 实体类
      */
-    @OperateLog(operateType = OperateTypeEnum.QUERY, description = "根据id查询${table.entityPath}详情")
+    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询${table.entityPath}详情")
 <#if springdoc>
     @ApiOperationSupport(order = 5)
     @Operation(summary = "详情")

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 角色信息表 Mapper接口
  *
  * @author codesensi
- * @since 2024-05-05 19:17:53
+ * @since 2024-05-12 19:57:32
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 

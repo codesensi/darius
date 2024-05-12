@@ -1,9 +1,9 @@
 package cn.codesensi.darius.common.advice;
 
+import cn.codesensi.darius.common.enums.ApiResponseStatusEnum;
 import cn.codesensi.darius.common.exception.BusinessException;
 import cn.codesensi.darius.common.exception.SystemException;
 import cn.codesensi.darius.common.response.ApiResponseResult;
-import cn.codesensi.darius.common.enums.ApiResponseStatusEnum;
 import cn.codesensi.darius.common.response.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +30,7 @@ public class GlobalExceptionHandler {
         if (e instanceof BusinessException) {
             log.error("业务异常！原因是：{}", e.getMessage(), e);
         }
+        log.error("未知异常！原因是：{}", e.getMessage(), e);
         return R.fail(ApiResponseStatusEnum.FAIL.getCode(), e.getMessage());
     }
 }

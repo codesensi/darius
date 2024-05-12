@@ -44,15 +44,12 @@ public class ApiResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> clazz, ServerHttpRequest request, ServerHttpResponse response) {
         // 如果返回类型是string，那么springmvc是直接返回的，此时需要手动转化为json
         if (body instanceof String) {
-            log.info("接口响应数据格式:String");
             return JSONUtil.toJsonStr(R.ok(body));
         }
         // 防止重复包裹的问题出现
         if (body instanceof ApiResponseResult) {
-            log.info("接口响应数据格式:ApiResponseResult");
             return body;
         }
-        log.info("接口响应数据格式:Normal");
         return R.ok(body);
     }
 
