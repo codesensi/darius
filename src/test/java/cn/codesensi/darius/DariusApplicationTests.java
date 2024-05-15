@@ -1,5 +1,6 @@
 package cn.codesensi.darius;
 
+import cn.codesensi.darius.common.util.Ip2regionUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,18 @@ class DariusApplicationTests {
         // 生成id
         long id = IdUtil.getSnowflakeNextId();
         logger.info("生成的id：{}", id);
+    }
+
+    /**
+     * 根据IP获取地区
+     */
+    @Test
+    public void searchTest() {
+        // String ip = "127.0.0.1";
+        // String ip = "1.1.1.1";
+        String ip = "59.53.145.211";
+        String area = Ip2regionUtil.search(ip);
+        logger.info("area：{}", area);
     }
 
 }

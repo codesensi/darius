@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 角色信息表 实体类
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:08:36
  */
 @Data
 @Accessors(chain = true)
@@ -41,16 +41,34 @@ public class SysRole extends BaseEntity implements Serializable {
     private String name;
 
     /**
-     * 角色描述
+     * 角色权限码
      */
-    @Schema(description = "角色描述")
-    private String description;
+    @Schema(description = "角色权限码")
+    private String code;
 
     /**
      * 父角色ID
      */
     @Schema(description = "父角色ID")
     private Long pid;
+
+    /**
+     * 角色描述
+     */
+    @Schema(description = "角色描述")
+    private String description;
+
+    /**
+     * 角色类型:0-默认角色
+     */
+    @Schema(description = "角色类型:0-默认角色")
+    private Integer type;
+
+    /**
+     * 角色排序
+     */
+    @Schema(description = "角色排序")
+    private Integer sort;
 
     /**
      * 角色状态:0-正常,1-禁用

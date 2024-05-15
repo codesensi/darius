@@ -3,8 +3,8 @@ package cn.codesensi.darius.system.controller;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.enums.OperateType;
-import cn.codesensi.darius.system.entity.SysRole;
-import cn.codesensi.darius.system.service.ISysRoleService;
+import cn.codesensi.darius.system.entity.SysMenu;
+import cn.codesensi.darius.system.service.ISysMenuService;
 import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -18,31 +18,31 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 角色信息表 前端控制器
+ * 菜单信息表 前端控制器
  *
  * @author codesensi
- * @since 2024-05-15 22:08:36
+ * @since 2024-05-15 22:09:56
  */
 @ApiResponseBody
 @RestController
-@Tag(name = "角色信息表接口", description = "角色信息表接口")
-@RequestMapping("/system/sys-role")
-public class SysRoleController {
+@Tag(name = "菜单信息表接口", description = "菜单信息表接口")
+@RequestMapping("/system/sys-menu")
+public class SysMenuController {
 
     @Resource
-    private ISysRoleService sysRoleService;
+    private ISysMenuService sysMenuService;
 
     /**
      * 新增
      *
-     * @param sysRole 实体类
+     * @param sysMenu 实体类
      */
-    @OperateLog(operateType = OperateType.INSERT, description = "新增一条sysRole数据")
+    @OperateLog(operateType = OperateType.INSERT, description = "新增一条sysMenu数据")
     @ApiOperationSupport(order = 1)
     @Operation(summary = "新增")
     @PostMapping("/save")
-    public void save(@RequestBody SysRole sysRole) {
-        sysRoleService.save(sysRole);
+    public void save(@RequestBody SysMenu sysMenu) {
+        sysMenuService.save(sysMenu);
     }
 
     /**
@@ -50,32 +50,32 @@ public class SysRoleController {
      *
      * @param id 主键id
      */
-    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条sysRole数据")
+    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条sysMenu数据")
     @ApiOperationSupport(order = 2)
     @Operation(summary = "删除")
     @Parameter(name = "id", description = "主键id", required = true, in = ParameterIn.PATH)
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable(name = "id") Long id) {
-        sysRoleService.removeById(id);
+        sysMenuService.removeById(id);
     }
 
     /**
      * 更新
      *
-     * @param sysRole 实体类
+     * @param sysMenu 实体类
      */
-    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条sysRole数据")
+    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条sysMenu数据")
     @ApiOperationSupport(order = 3)
     @Operation(summary = "更新")
     @PutMapping("/update")
-    public void update(@RequestBody SysRole sysRole) {
+    public void update(@RequestBody SysMenu sysMenu) {
         // 乐观锁更新
-        SysRole info = sysRoleService.getById(sysRole.getId());
+        SysMenu info = sysMenuService.getById(sysMenu.getId());
         if (ObjUtil.isNotNull(info)) {
             Integer version = info.getVersion();
-            sysRole.setVersion(version);
+            sysMenu.setVersion(version);
         }
-        sysRoleService.updateById(sysRole);
+        sysMenuService.updateById(sysMenu);
     }
 
     /**
@@ -83,10 +83,10 @@ public class SysRoleController {
      *
      * @param current 当前页
      * @param size    每页数量
-     * @param sysRole 实体类
-     * @return PageInfo<SysRole> 分页对象
+     * @param sysMenu 实体类
+     * @return PageInfo<SysMenu> 分页对象
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询sysRole分页列表", isSaveResponseData = false)
+    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询sysMenu分页列表", isSaveResponseData = false)
     @ApiOperationSupport(order = 4)
     @Operation(summary = "分页列表")
     @Parameters({
@@ -94,14 +94,14 @@ public class SysRoleController {
             @Parameter(name = "size", description = "每页数量", required = true, in = ParameterIn.QUERY)
     })
     @GetMapping("/page")
-    public Page<SysRole> page(@RequestParam(name = "current", defaultValue = "1") Integer current,
+    public Page<SysMenu> page(@RequestParam(name = "current", defaultValue = "1") Integer current,
                               @RequestParam(name = "size", defaultValue = "10") Integer size,
-                              @ParameterObject SysRole sysRole) {
-        Page<SysRole> page = new Page<>(current, size);
-        return sysRoleService.lambdaQuery()
+                              @ParameterObject SysMenu sysMenu) {
+        Page<SysMenu> page = new Page<>(current, size);
+        return sysMenuService.lambdaQuery()
                 // TODO 组织条件
-                .eq(ObjUtil.isNotNull(sysRole.getId()), SysRole::getId, sysRole.getId())
-                .orderByDesc(SysRole::getCreateTime)
+                .eq(ObjUtil.isNotNull(sysMenu.getId()), SysMenu::getId, sysMenu.getId())
+                .orderByDesc(SysMenu::getCreateTime)
                 .page(page);
     }
 
@@ -109,15 +109,15 @@ public class SysRoleController {
      * 详情
      *
      * @param id 主键id
-     * @return SysRole 实体类
+     * @return SysMenu 实体类
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询sysRole详情")
+    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询sysMenu详情")
     @ApiOperationSupport(order = 5)
     @Operation(summary = "详情")
     @Parameter(name = "id", description = "主键id", required = true, in = ParameterIn.PATH)
     @GetMapping("/detail/{id}")
-    public SysRole detail(@PathVariable(name = "id") Long id) {
-        return sysRoleService.getById(id);
+    public SysMenu detail(@PathVariable(name = "id") Long id) {
+        return sysMenuService.getById(id);
     }
 
 }

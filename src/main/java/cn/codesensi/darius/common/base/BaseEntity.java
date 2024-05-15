@@ -1,5 +1,6 @@
 package cn.codesensi.darius.common.base;
 
+import cn.hutool.core.date.DatePattern;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,7 +34,7 @@ public class BaseEntity implements Serializable {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
     @Schema(name = "createTime", description = "创建时间")
     private LocalDateTime createTime;
 
@@ -46,7 +47,7 @@ public class BaseEntity implements Serializable {
     /**
      * 更新时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
     @Schema(name = "updateTime", description = "更新时间")
     private LocalDateTime updateTime;
 

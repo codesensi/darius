@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 用户角色关联表 实体类
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:08:36
  */
 @Data
 @Accessors(chain = true)

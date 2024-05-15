@@ -1,7 +1,9 @@
 package cn.codesensi.darius.system.entity;
 
 import cn.codesensi.darius.common.base.BaseEntity;
+import cn.hutool.core.date.DatePattern;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
  * 操作日志表 实体类
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:08:36
  */
 @Data
 @Accessors(chain = true)
@@ -54,9 +56,16 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     private String operateDescription;
 
     /**
+     * 请求人
+     */
+    @Schema(description = "请求人")
+    private Long requestUser;
+
+    /**
      * 请求时间
      */
     @Schema(description = "请求时间")
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
     private LocalDateTime requestTime;
 
     /**
@@ -72,10 +81,22 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     private String requestArea;
 
     /**
-     * 请求浏览器UA
+     * 请求系统
      */
-    @Schema(description = "请求浏览器UA")
-    private String requestUa;
+    @Schema(description = "请求系统")
+    private String requestOs;
+
+    /**
+     * 请求设备
+     */
+    @Schema(description = "请求设备")
+    private String requestDevice;
+
+    /**
+     * 请求浏览器
+     */
+    @Schema(description = "请求浏览器")
+    private String requestBrowser;
 
     /**
      * 请求接口
@@ -110,6 +131,7 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 正常响应时间
      */
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
     @Schema(description = "正常响应时间")
     private LocalDateTime responseTime;
 
@@ -128,6 +150,7 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     /**
      * 异常响应时间
      */
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN, timezone = "GMT+8")
     @Schema(description = "异常响应时间")
     private LocalDateTime errorTime;
 

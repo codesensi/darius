@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 操作日志表 服务实现类
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:08:36
  */
 @Service
 public class SysOperateLogServiceImpl extends ServiceImpl<SysOperateLogMapper, SysOperateLog> implements ISysOperateLogService {

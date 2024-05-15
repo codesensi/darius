@@ -3,8 +3,8 @@ package cn.codesensi.darius.system.controller;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.enums.OperateType;
-import cn.codesensi.darius.system.entity.SysPermission;
-import cn.codesensi.darius.system.service.ISysPermissionService;
+import cn.codesensi.darius.system.entity.SysRoleMenu;
+import cn.codesensi.darius.system.service.ISysRoleMenuService;
 import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -18,31 +18,31 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 权限信息表 前端控制器
+ * 角色菜单关联表 前端控制器
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:09:57
  */
 @ApiResponseBody
 @RestController
-@Tag(name = "权限信息表接口", description = "权限信息表接口")
-@RequestMapping("/system/sys-permission")
-public class SysPermissionController {
+@Tag(name = "角色菜单关联表接口", description = "角色菜单关联表接口")
+@RequestMapping("/system/sys-role-menu")
+public class SysRoleMenuController {
 
     @Resource
-    private ISysPermissionService sysPermissionService;
+    private ISysRoleMenuService sysRoleMenuService;
 
     /**
      * 新增
      *
-     * @param sysPermission 实体类
+     * @param sysRoleMenu 实体类
      */
-    @OperateLog(operateType = OperateType.INSERT, description = "新增一条sysPermission数据")
+    @OperateLog(operateType = OperateType.INSERT, description = "新增一条sysRoleMenu数据")
     @ApiOperationSupport(order = 1)
     @Operation(summary = "新增")
     @PostMapping("/save")
-    public void save(@RequestBody SysPermission sysPermission) {
-        sysPermissionService.save(sysPermission);
+    public void save(@RequestBody SysRoleMenu sysRoleMenu) {
+        sysRoleMenuService.save(sysRoleMenu);
     }
 
     /**
@@ -50,43 +50,43 @@ public class SysPermissionController {
      *
      * @param id 主键id
      */
-    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条sysPermission数据")
+    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条sysRoleMenu数据")
     @ApiOperationSupport(order = 2)
     @Operation(summary = "删除")
     @Parameter(name = "id", description = "主键id", required = true, in = ParameterIn.PATH)
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable(name = "id") Long id) {
-        sysPermissionService.removeById(id);
+        sysRoleMenuService.removeById(id);
     }
 
     /**
      * 更新
      *
-     * @param sysPermission 实体类
+     * @param sysRoleMenu 实体类
      */
-    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条sysPermission数据")
+    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条sysRoleMenu数据")
     @ApiOperationSupport(order = 3)
     @Operation(summary = "更新")
     @PutMapping("/update")
-    public void update(@RequestBody SysPermission sysPermission) {
+    public void update(@RequestBody SysRoleMenu sysRoleMenu) {
         // 乐观锁更新
-        SysPermission info = sysPermissionService.getById(sysPermission.getId());
+        SysRoleMenu info = sysRoleMenuService.getById(sysRoleMenu.getId());
         if (ObjUtil.isNotNull(info)) {
             Integer version = info.getVersion();
-            sysPermission.setVersion(version);
+            sysRoleMenu.setVersion(version);
         }
-        sysPermissionService.updateById(sysPermission);
+        sysRoleMenuService.updateById(sysRoleMenu);
     }
 
     /**
      * 分页列表
      *
-     * @param current       当前页
-     * @param size          每页数量
-     * @param sysPermission 实体类
-     * @return PageInfo<SysPermission> 分页对象
+     * @param current     当前页
+     * @param size        每页数量
+     * @param sysRoleMenu 实体类
+     * @return PageInfo<SysRoleMenu> 分页对象
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询sysPermission分页列表", isSaveResponseData = false)
+    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询sysRoleMenu分页列表", isSaveResponseData = false)
     @ApiOperationSupport(order = 4)
     @Operation(summary = "分页列表")
     @Parameters({
@@ -94,14 +94,14 @@ public class SysPermissionController {
             @Parameter(name = "size", description = "每页数量", required = true, in = ParameterIn.QUERY)
     })
     @GetMapping("/page")
-    public Page<SysPermission> page(@RequestParam(name = "current", defaultValue = "1") Integer current,
-                                    @RequestParam(name = "size", defaultValue = "10") Integer size,
-                                    @ParameterObject SysPermission sysPermission) {
-        Page<SysPermission> page = new Page<>(current, size);
-        return sysPermissionService.lambdaQuery()
+    public Page<SysRoleMenu> page(@RequestParam(name = "current", defaultValue = "1") Integer current,
+                                  @RequestParam(name = "size", defaultValue = "10") Integer size,
+                                  @ParameterObject SysRoleMenu sysRoleMenu) {
+        Page<SysRoleMenu> page = new Page<>(current, size);
+        return sysRoleMenuService.lambdaQuery()
                 // TODO 组织条件
-                .eq(ObjUtil.isNotNull(sysPermission.getId()), SysPermission::getId, sysPermission.getId())
-                .orderByDesc(SysPermission::getCreateTime)
+                .eq(ObjUtil.isNotNull(sysRoleMenu.getId()), SysRoleMenu::getId, sysRoleMenu.getId())
+                .orderByDesc(SysRoleMenu::getCreateTime)
                 .page(page);
     }
 
@@ -109,15 +109,15 @@ public class SysPermissionController {
      * 详情
      *
      * @param id 主键id
-     * @return SysPermission 实体类
+     * @return SysRoleMenu 实体类
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询sysPermission详情")
+    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询sysRoleMenu详情")
     @ApiOperationSupport(order = 5)
     @Operation(summary = "详情")
     @Parameter(name = "id", description = "主键id", required = true, in = ParameterIn.PATH)
     @GetMapping("/detail/{id}")
-    public SysPermission detail(@PathVariable(name = "id") Long id) {
-        return sysPermissionService.getById(id);
+    public SysRoleMenu detail(@PathVariable(name = "id") Long id) {
+        return sysRoleMenuService.getById(id);
     }
 
 }

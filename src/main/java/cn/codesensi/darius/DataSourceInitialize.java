@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
- * 初始化数据库
+ * 数据初始化
  */
 @Slf4j
 @Configuration
@@ -71,7 +71,7 @@ public class DataSourceInitialize {
             // 得到连接地址中的库名
             databaseName = databaseUri.getPath().substring(Constant.ONE_INT);
         } catch (URISyntaxException e) {
-            log.error("[初始化数据库]获取数据库配置失败！原因是：{}", e.getMessage(), e);
+            log.error("[数据初始化]获取数据库配置失败！原因是：{}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
         // 创建数据库
@@ -81,14 +81,14 @@ public class DataSourceInitialize {
              Statement statement = connection.createStatement()) {
             ResultSet tableResult = statement.executeQuery("SELECT table_name FROM information_schema.TABLES WHERE table_name = 'sys_operate_log' AND table_schema = '" + databaseName + "'");
             if (tableResult.next()) {
-                log.info("|-----[初始化数据库]初始数据已存在，无需初始化-----|");
+                log.info("|-----[数据初始化]初始数据已存在，无需初始化-----|");
                 return Boolean.FALSE;
             } else {
-                log.info("|-----[初始化数据库]初始数据不存在，开始初始化数据-----|");
+                log.warn("|-----[数据初始化]初始数据不存在，开始初始化数据-----|");
                 return Boolean.TRUE;
             }
         } catch (Exception e) {
-            log.error("[初始化数据库]是否初始化数据判断失败！原因是：{}", e.getMessage(), e);
+            log.error("[数据初始化]是否初始化数据判断失败！原因是：{}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }
@@ -102,15 +102,15 @@ public class DataSourceInitialize {
             // 查询数据库
             ResultSet databaseResult = statement.executeQuery("SELECT schema_name FROM information_schema.schemata WHERE schema_name = '" + databaseName + "'");
             if (databaseResult.next()) {
-                log.info("|-----[初始化数据库]数据库已存在，无需创建-----|");
+                log.info("|-----[数据初始化]数据库已存在，无需创建-----|");
             } else {
                 // 创建数据库
-                log.warn("|-----[初始化数据库]数据库不存在，开始创建数据库-----|");
+                log.warn("|-----[数据初始化]数据库不存在，开始创建数据库-----|");
                 statement.execute("CREATE DATABASE IF NOT EXISTS `" + databaseName + "` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
-                log.info("|-----[初始化数据库]创建数据库完成-----|");
+                log.info("|-----[数据初始化]创建数据库完成-----|");
             }
         } catch (Exception e) {
-            log.error("[初始化数据库]创建数据库失败！原因是：{}", e.getMessage(), e);
+            log.error("[数据初始化]创建数据库失败！原因是：{}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }

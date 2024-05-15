@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 用户信息表 实体类
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:08:36
  */
 @Data
 @Accessors(chain = true)
@@ -35,9 +35,9 @@ public class SysUser extends BaseEntity implements Serializable {
     private Long id;
 
     /**
-     * 用户账号
+     * 用户名称
      */
-    @Schema(description = "用户账号")
+    @Schema(description = "用户名称")
     private String username;
 
     /**
@@ -89,9 +89,9 @@ public class SysUser extends BaseEntity implements Serializable {
     private Integer type;
 
     /**
-     * 用户帐号状态:0-启用,1-禁用
+     * 用户状态:0-启用,1-禁用
      */
-    @Schema(description = "用户帐号状态:0-启用,1-禁用")
+    @Schema(description = "用户状态:0-启用,1-禁用")
     private Integer state;
 
     /**

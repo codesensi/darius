@@ -16,21 +16,13 @@ import java.io.IOException;
 @Slf4j
 public class Ip2regionUtil {
 
-    /**
-     * 初始化 SEARCHER
-     */
-    @SuppressWarnings("InstantiationOfUtilityClass")
-    private final static Ip2regionUtil IP_2_REGION_UTIL = new Ip2regionUtil();
 
-    /**
-     * 启动加载到内存中
-     */
     private static Searcher SEARCHER;
 
-    /**
-     * 私有化构造
+    /*
+      加载到内存中
      */
-    private Ip2regionUtil() {
+    static {
         try {
             byte[] bytes = ResourceUtil.readBytes("ip2region/ip2region.xdb");
             SEARCHER = Searcher.newWithBuffer(bytes);
@@ -43,7 +35,12 @@ public class Ip2regionUtil {
      */
     public static String search(String ip) {
         try {
-            return SEARCHER.search(ip);
+            String search = SEARCHER.search(ip);
+            search = search.replace("|0", "").replace("0|", "");
+            if (search.contains("内网")) {
+                search = "内网";
+            }
+            return search;
         } catch (Exception ignored) {
         }
         return "未知";

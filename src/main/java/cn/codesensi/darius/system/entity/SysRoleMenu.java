@@ -12,18 +12,18 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 角色权限关联表 实体类
+ * 角色菜单关联表 实体类
  *
  * @author codesensi
- * @since 2024-05-12 19:57:32
+ * @since 2024-05-15 22:09:57
  */
 @Data
 @Accessors(chain = true)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@TableName("sys_role_permission")
-@Schema(name = "SysRolePermission", description = "角色权限关联表")
-public class SysRolePermission extends BaseEntity implements Serializable {
+@TableName("sys_role_menu")
+@Schema(name = "SysRoleMenu", description = "角色菜单关联表")
+public class SysRoleMenu extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -41,8 +41,8 @@ public class SysRolePermission extends BaseEntity implements Serializable {
     private Long roleId;
 
     /**
-     * 权限ID
+     * 菜单ID
      */
-    @Schema(description = "权限ID")
-    private Long permissionId;
+    @Schema(description = "菜单ID")
+    private Long menuId;
 }

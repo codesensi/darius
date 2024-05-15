@@ -10,6 +10,7 @@ import cn.codesensi.darius.common.util.ServletUtil;
 import cn.codesensi.darius.system.entity.SysOperateLog;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import eu.bitwalker.useragentutils.UserAgent;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -19,7 +20,6 @@ import org.aspectj.lang.reflect.CodeSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
@@ -80,8 +80,7 @@ public class OperateLogAspect {
 
     protected void handleLog(final JoinPoint joinPoint, final Throwable throwable, Object returning) {
         try {
-            SysOperateLog operateLog = new SysOperateLog();
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            ServletRequestAttributes attributes = ServletUtil.getRequestAttributes();
             Optional.ofNullable(attributes).ifPresent(o -> {
                 HttpServletRequest request = o.getRequest();
                 Signature signature = joinPoint.getSignature();
@@ -89,6 +88,7 @@ public class OperateLogAspect {
                 String requestMethod = StrUtil.join(".", signature.getDeclaringTypeName(), signature.getName());
                 String requestMode = request.getMethod();
 
+                SysOperateLog operateLog = new SysOperateLog();
                 // 获取注解信息
                 OperateLog annotationLog = getAnnotationLog(joinPoint);
                 Optional.ofNullable(annotationLog).ifPresent(l -> {
@@ -113,13 +113,16 @@ public class OperateLogAspect {
                     }
                 });
                 // 请求
-                // TODO 操作人
-                operateLog.setCreator(null);
+                // TODO 请求人
+                operateLog.setRequestUser(null);
                 operateLog.setRequestTime(LocalDateTime.now());
                 String ipAddr = IpUtil.getIpAddr();
                 operateLog.setRequestIp(ipAddr);
                 operateLog.setRequestArea(Ip2regionUtil.search(ipAddr));
-                operateLog.setRequestUa(ServletUtil.getUserAgent());
+                UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtil.getUserAgent());
+                operateLog.setRequestOs(userAgent.getOperatingSystem().getName());
+                operateLog.setRequestDevice(userAgent.getOperatingSystem().getDeviceType().getName());
+                operateLog.setRequestBrowser(userAgent.getBrowser().getName());
                 operateLog.setRequestUrl(requestUrl.toString());
                 operateLog.setRequestMethod(requestMethod);
                 operateLog.setRequestMode(requestMode);
@@ -133,9 +136,11 @@ public class OperateLogAspect {
                     operateLog.setErrorTime(LocalDateTime.now());
                     operateLog.setErrorMessage(throwable.getMessage());
                 }
+                // TODO 创建人
+                operateLog.setCreator(null);
+                // 异步保存数据库
+                TaskManager.me().execute(TaskFactory.recordOperateLog(operateLog));
             });
-            // 异步保存数据库
-            TaskManager.me().execute(TaskFactory.recordOperateLog(operateLog));
         } catch (Exception e) {
             // 记录本地异常日志
             log.error("操作日志记录异常！原因是：{}", e.getMessage(), e);
