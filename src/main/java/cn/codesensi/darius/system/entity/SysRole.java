@@ -74,7 +74,7 @@ public class SysRole extends BaseEntity implements Serializable {
      * 角色状态:0-正常,1-禁用
      */
     @Schema(description = "角色状态:0-正常,1-禁用")
-    private Integer state;
+    private Integer status;
 
     /**
      * 备注

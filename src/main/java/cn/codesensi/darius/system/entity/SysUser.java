@@ -92,7 +92,7 @@ public class SysUser extends BaseEntity implements Serializable {
      * 用户状态:0-启用,1-禁用
      */
     @Schema(description = "用户状态:0-启用,1-禁用")
-    private Integer state;
+    private Integer status;
 
     /**
      * 备注
