@@ -2,6 +2,7 @@ package cn.codesensi.darius.system.controller;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
+import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysUserRole;
 import cn.codesensi.darius.system.service.ISysUserRoleService;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "用户角色关联表接口", description = "用户角色关联表接口")
 @RequestMapping("/system/sys-user-role")
-public class SysUserRoleController {
+public class SysUserRoleController extends BaseController {
 
     @Resource
     private ISysUserRoleService sysUserRoleService;

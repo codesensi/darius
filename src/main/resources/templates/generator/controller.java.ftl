@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 </#if>
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
+import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.common.enums.OperateType;
 import ${package.Entity}.${entity};
 import org.springdoc.core.annotations.ParameterObject;
@@ -50,7 +51,7 @@ class ${table.controllerName}<#if superControllerClass??> : ${superControllerCla
 <#if superControllerClass??>
 public class ${table.controllerName} extends ${superControllerClass} {
 <#else>
-public class ${table.controllerName} {
+public class ${table.controllerName} extends BaseController {
 </#if>
 
     @Resource

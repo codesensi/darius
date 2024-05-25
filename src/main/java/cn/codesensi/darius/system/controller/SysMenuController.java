@@ -2,6 +2,7 @@ package cn.codesensi.darius.system.controller;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
+import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysMenu;
 import cn.codesensi.darius.system.service.ISysMenuService;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "菜单信息表接口", description = "菜单信息表接口")
 @RequestMapping("/system/sys-menu")
-public class SysMenuController {
+public class SysMenuController extends BaseController {
 
     @Resource
     private ISysMenuService sysMenuService;

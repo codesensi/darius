@@ -2,6 +2,7 @@ package cn.codesensi.darius.system.controller;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
+import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysOperateLog;
 import cn.codesensi.darius.system.service.ISysOperateLogService;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "操作日志表接口", description = "操作日志表接口")
 @RequestMapping("/system/sys-operate-log")
-public class SysOperateLogController {
+public class SysOperateLogController extends BaseController {
 
     @Resource
     private ISysOperateLogService sysOperateLogService;

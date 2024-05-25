@@ -2,6 +2,7 @@ package cn.codesensi.darius.system.controller;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
+import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysRoleMenu;
 import cn.codesensi.darius.system.service.ISysRoleMenuService;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Tag(name = "角色菜单关联表接口", description = "角色菜单关联表接口")
 @RequestMapping("/system/sys-role-menu")
-public class SysRoleMenuController {
+public class SysRoleMenuController extends BaseController {
 
     @Resource
     private ISysRoleMenuService sysRoleMenuService;

@@ -3,6 +3,8 @@ package cn.codesensi.darius.common.exception;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
+
 /**
  * 自定义业务异常
  *
@@ -12,6 +14,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class BusinessException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public BusinessException(String message) {
         super(message);

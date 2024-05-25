@@ -73,3 +73,9 @@ mica:
     mode: escape
     path-patterns: /**
     path-exclude-patterns:
+
+# 项目配置
+darius:
+  config:
+    # 演示模式开关
+    demo-mode: true
