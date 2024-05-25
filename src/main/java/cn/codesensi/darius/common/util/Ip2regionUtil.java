@@ -16,7 +16,6 @@ import java.io.IOException;
 @Slf4j
 public class Ip2regionUtil {
 
-
     private static Searcher SEARCHER;
 
     /*
