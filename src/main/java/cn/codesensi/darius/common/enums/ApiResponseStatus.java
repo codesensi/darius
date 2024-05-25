@@ -9,7 +9,7 @@ import lombok.Getter;
  * @since 2024/1/10 22:44
  */
 @Getter
-public enum ApiResponseStatusEnum {
+public enum ApiResponseStatus {
 
     FAIL(0, "失败"),
     OK(1, "成功"),
@@ -29,7 +29,7 @@ public enum ApiResponseStatusEnum {
      */
     private final String message;
 
-    ApiResponseStatusEnum(Integer code, String message) {
+    ApiResponseStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
