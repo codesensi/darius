@@ -1,6 +1,6 @@
 package cn.codesensi.darius.common.response;
 
-import cn.codesensi.darius.common.enums.ApiResponseStatusEnum;
+import cn.codesensi.darius.common.enums.ApiResponseStatus;
 
 /**
  * 接口统一响应对象构建工具
@@ -13,20 +13,20 @@ public class R {
         return new ApiResponseResult<>(code, message, data);
     }
 
-    private static <T> ApiResponseResult<T> make(ApiResponseStatusEnum status) {
+    private static <T> ApiResponseResult<T> make(ApiResponseStatus status) {
         return new ApiResponseResult<>(status.getCode(), status.getMessage(), null);
     }
 
-    private static <T> ApiResponseResult<T> make(ApiResponseStatusEnum status, T data) {
+    private static <T> ApiResponseResult<T> make(ApiResponseStatus status, T data) {
         return new ApiResponseResult<>(status.getCode(), status.getMessage(), data);
     }
 
     public static <T> ApiResponseResult<T> ok() {
-        return make(ApiResponseStatusEnum.OK);
+        return make(ApiResponseStatus.OK);
     }
 
     public static <T> ApiResponseResult<T> ok(T data) {
-        return make(ApiResponseStatusEnum.OK, data);
+        return make(ApiResponseStatus.OK, data);
     }
 
     public static <T> ApiResponseResult<T> ok(Integer code, String message) {
@@ -38,11 +38,11 @@ public class R {
     }
 
     public static <T> ApiResponseResult<T> fail() {
-        return make(ApiResponseStatusEnum.FAIL);
+        return make(ApiResponseStatus.FAIL);
     }
 
     public static <T> ApiResponseResult<T> fail(T data) {
-        return make(ApiResponseStatusEnum.FAIL, data);
+        return make(ApiResponseStatus.FAIL, data);
     }
 
     public static <T> ApiResponseResult<T> fail(Integer code, String message) {
