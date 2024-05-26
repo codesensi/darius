@@ -78,4 +78,4 @@ mica:
 darius:
   config:
     # 演示模式开关
-    demo-mode: true
+    demo-mode: false

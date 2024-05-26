@@ -98,3 +98,8 @@ thread:
     await-termination-seconds: 60
     # 拒绝策略
     rejected-execution-handler: CallerRunsPolicy
+
+# p6spy配置
+decorator:
+  datasource:
+    enabled: true
