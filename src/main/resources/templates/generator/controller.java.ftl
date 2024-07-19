@@ -62,7 +62,7 @@ public class ${table.controllerName} extends BaseController {
      *
      * @param ${table.entityPath} 实体类
      */
-    @OperateLog(operateType = OperateType.INSERT, description = "新增一条${table.entityPath}数据")
+    @OperateLog(operateType = OperateType.INSERT, description = "新增一条${table.comment!}数据")
 <#if springdoc>
     @ApiOperationSupport(order = 1)
     @Operation(summary = "新增")
@@ -77,7 +77,7 @@ public class ${table.controllerName} extends BaseController {
      *
      * @param id 主键id
      */
-    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条${table.entityPath}数据")
+    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条${table.comment!}数据")
 <#if springdoc>
     @ApiOperationSupport(order = 2)
     @Operation(summary = "删除")
@@ -93,7 +93,7 @@ public class ${table.controllerName} extends BaseController {
      *
      * @param ${table.entityPath} 实体类
      */
-    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条${table.entityPath}数据")
+    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条${table.comment!}数据")
 <#if springdoc>
     @ApiOperationSupport(order = 3)
     @Operation(summary = "更新")
@@ -117,7 +117,7 @@ public class ${table.controllerName} extends BaseController {
      * @param ${table.entityPath} 实体类
      * @return PageInfo<${entity}> 分页对象
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询${table.entityPath}分页列表", isSaveResponseData = false)
+    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询${table.comment!}分页列表", isSaveResponseData = false)
 <#if springdoc>
     @ApiOperationSupport(order = 4)
     @Operation(summary = "分页列表")
@@ -144,7 +144,7 @@ public class ${table.controllerName} extends BaseController {
      * @param id 主键id
      * @return ${entity} 实体类
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询${table.entityPath}详情")
+    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询${table.comment!}详情")
 <#if springdoc>
     @ApiOperationSupport(order = 5)
     @Operation(summary = "详情")

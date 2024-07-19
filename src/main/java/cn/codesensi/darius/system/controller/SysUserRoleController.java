@@ -38,7 +38,7 @@ public class SysUserRoleController extends BaseController {
      *
      * @param sysUserRole 实体类
      */
-    @OperateLog(operateType = OperateType.INSERT, description = "新增一条sysUserRole数据")
+    @OperateLog(operateType = OperateType.INSERT, description = "新增一条用户角色关联表数据")
     @ApiOperationSupport(order = 1)
     @Operation(summary = "新增")
     @PostMapping("/save")
@@ -51,7 +51,7 @@ public class SysUserRoleController extends BaseController {
      *
      * @param id 主键id
      */
-    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条sysUserRole数据")
+    @OperateLog(operateType = OperateType.DELETE, description = "根据id删除一条用户角色关联表数据")
     @ApiOperationSupport(order = 2)
     @Operation(summary = "删除")
     @Parameter(name = "id", description = "主键id", required = true, in = ParameterIn.PATH)
@@ -65,7 +65,7 @@ public class SysUserRoleController extends BaseController {
      *
      * @param sysUserRole 实体类
      */
-    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条sysUserRole数据")
+    @OperateLog(operateType = OperateType.UPDATE, description = "根据id更新一条用户角色关联表数据")
     @ApiOperationSupport(order = 3)
     @Operation(summary = "更新")
     @PutMapping("/update")
@@ -87,7 +87,7 @@ public class SysUserRoleController extends BaseController {
      * @param sysUserRole 实体类
      * @return PageInfo<SysUserRole> 分页对象
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询sysUserRole分页列表", isSaveResponseData = false)
+    // @OperateLog(operateType = OperateType.QUERY, description = "条件查询用户角色关联表分页列表", isSaveResponseData = false)
     @ApiOperationSupport(order = 4)
     @Operation(summary = "分页列表")
     @Parameters({
@@ -112,7 +112,7 @@ public class SysUserRoleController extends BaseController {
      * @param id 主键id
      * @return SysUserRole 实体类
      */
-    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询sysUserRole详情")
+    // @OperateLog(operateType = OperateType.QUERY, description = "根据id查询用户角色关联表详情")
     @ApiOperationSupport(order = 5)
     @Operation(summary = "详情")
     @Parameter(name = "id", description = "主键id", required = true, in = ParameterIn.PATH)
