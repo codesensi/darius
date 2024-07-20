@@ -89,6 +89,12 @@ public class SysMenu extends BaseEntity implements Serializable {
     private String routePath;
 
     /**
+     * 菜单组件路径
+     */
+    @Schema(description = "菜单组件路径")
+    private String componentPath;
+
+    /**
      * 菜单状态:0-正常,1-禁用
      */
     @Schema(description = "菜单状态:0-正常,1-禁用")
