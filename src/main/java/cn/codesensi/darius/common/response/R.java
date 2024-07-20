@@ -25,6 +25,10 @@ public class R {
         return make(ApiResponseStatus.OK);
     }
 
+    public static <T> ApiResponseResult<T> ok(ApiResponseStatus status) {
+        return make(status);
+    }
+
     public static <T> ApiResponseResult<T> ok(T data) {
         return make(ApiResponseStatus.OK, data);
     }
@@ -39,6 +43,10 @@ public class R {
 
     public static <T> ApiResponseResult<T> fail() {
         return make(ApiResponseStatus.FAIL);
+    }
+
+    public static <T> ApiResponseResult<T> fail(ApiResponseStatus status) {
+        return make(status);
     }
 
     public static <T> ApiResponseResult<T> fail(T data) {

@@ -13,11 +13,12 @@ public enum ApiResponseStatus {
 
     FAIL(0, "失败"),
     OK(1, "成功"),
-    BAD_REQUEST(40001, "错误的请求"),
-    UNAUTHORIZED(40002, "请求未授权"),
-    FORBIDDEN(40003, "请求被拒绝"),
-    NOT_FOUND(40004, "未找到该资源"),
-    INTERNAL_SERVER_ERROR(50000, "服务器内部错误");
+    // ---------- 通用状态码 ----------
+    BAD_REQUEST(400, "错误的请求"),
+    UNAUTHORIZED(401, "请求未授权"),
+    FORBIDDEN(403, "请求被拒绝"),
+    NOT_FOUND(404, "未找到该资源"),
+    INTERNAL_ERROR(500, "服务器内部错误");
 
     /**
      * 状态码

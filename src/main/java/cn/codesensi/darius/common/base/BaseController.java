@@ -1,7 +1,7 @@
 package cn.codesensi.darius.common.base;
 
 import cn.codesensi.darius.common.enums.RequestMethod;
-import cn.codesensi.darius.common.exception.DemoModeException;
+import cn.codesensi.darius.common.exception.ModeException;
 import cn.codesensi.darius.common.properties.DariusConfigProperties;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class BaseController {
         if (dariusConfigProperties.getDemoMode()) {
             // 增删改 请求
             if (RequestMethod.PUT.getCode().equals(request.getMethod()) || RequestMethod.POST.getCode().equals(request.getMethod()) || RequestMethod.DELETE.getCode().equals(request.getMethod())) {
-                throw new DemoModeException("演示模式，不允许操作");
+                throw new ModeException("演示模式，不允许操作");
             }
         }
     }
