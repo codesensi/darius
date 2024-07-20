@@ -16,4 +16,14 @@ public class Constant {
 
     public static final String ONE_STRING = "1";
 
+    /**
+     * 异步任务执行器名称
+     */
+    public static final String ASYNC_TASK_EXECUTOR_NAME = "asyncTaskExecutor";
+
+    /**
+     * 定时任务执行器名称
+     */
+    public static final String SCHEDULED_TASK_EXECUTOR_NAME = "scheduledTaskExecutor";
+
 }

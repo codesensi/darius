@@ -1,5 +1,6 @@
 package cn.codesensi.darius.common.task;
 
+import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.util.SpringUtil;
 import cn.codesensi.darius.common.util.TaskUtil;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -16,12 +17,12 @@ public class TaskManager {
     /**
      * 异步任务执行器
      */
-    private final ThreadPoolTaskExecutor asyncTaskExecutor = SpringUtil.getBean("asyncTaskExecutor", ThreadPoolTaskExecutor.class);
+    private final ThreadPoolTaskExecutor asyncTaskExecutor = SpringUtil.getBean(Constant.ASYNC_TASK_EXECUTOR_NAME, ThreadPoolTaskExecutor.class);
 
     /**
      * 定时额任务执行器
      */
-    private final ScheduledExecutorService scheduledTaskExecutor = SpringUtil.getBean("scheduledTaskExecutor", ScheduledExecutorService.class);
+    private final ScheduledExecutorService scheduledTaskExecutor = SpringUtil.getBean(Constant.SCHEDULED_TASK_EXECUTOR_NAME, ScheduledExecutorService.class);
 
     /**
      * 单例模式

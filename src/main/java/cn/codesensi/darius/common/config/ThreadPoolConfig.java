@@ -1,5 +1,6 @@
 package cn.codesensi.darius.common.config;
 
+import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.properties.ThreadPoolProperties;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
@@ -24,7 +25,7 @@ public class ThreadPoolConfig {
     /**
      * 执行异步任务
      */
-    @Bean(name = "asyncTaskExecutor")
+    @Bean(name = Constant.ASYNC_TASK_EXECUTOR_NAME)
     public ThreadPoolTaskExecutor asyncTaskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(threadPoolProperties.getCorePoolSize());
@@ -50,7 +51,7 @@ public class ThreadPoolConfig {
     /**
      * 执行定时任务
      */
-    @Bean(name = "scheduledTaskExecutor")
+    @Bean(name = Constant.SCHEDULED_TASK_EXECUTOR_NAME)
     protected ScheduledExecutorService scheduledTaskExecutor() {
         return new ScheduledThreadPoolExecutor(threadPoolProperties.getCorePoolSize(),
                 new BasicThreadFactory.Builder().namingPattern("scheduled-task-%d").daemon(true).build(),
