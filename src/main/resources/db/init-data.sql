@@ -165,6 +165,6 @@ CREATE TABLE IF NOT EXISTS `sys_role_menu`
   ROW_FORMAT = DYNAMIC COMMENT ='角色菜单关联表';
 
 -- 初始管理员用户
-INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1, 'admin', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '管理员', NULL, NULL, NULL, 0, NULL, 0, 0, NULL, NULL, '2024-05-26 17:19:48', NULL, '2024-05-26 17:19:48', 0, 0);
+INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1, 'administrator', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '超级管理员', '110105197000000001', 'administrator@gmailcom', '18900000000', 0, 'https://lsky.codesensi.cn:1443/i/2024/02/06/65c242e1493f8.png', 0, 0, '超级管理员', 1, '2024-05-26 17:19:48', NULL, '2024-07-20 22:41:42', 0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

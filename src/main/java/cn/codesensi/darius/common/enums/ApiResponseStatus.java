@@ -13,12 +13,19 @@ public enum ApiResponseStatus {
 
     FAIL(0, "失败"),
     OK(1, "成功"),
+
     // ---------- 通用状态码 ----------
     BAD_REQUEST(400, "错误的请求"),
     UNAUTHORIZED(401, "请求未授权"),
     FORBIDDEN(403, "请求被拒绝"),
     NOT_FOUND(404, "未找到该资源"),
-    INTERNAL_ERROR(500, "服务器内部错误");
+    INTERNAL_ERROR(500, "服务器内部错误"),
+
+    // ---------- 账号登录状态码 ----------
+    NOT_LOGIN(-1, "账号未登录"),
+    ACCOUNT_FREEZE(-6, "账号被冻结"),
+
+    ;
 
     /**
      * 状态码

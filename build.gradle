@@ -43,6 +43,7 @@ dependencies {
     implementation 'org.lionsoul:ip2region:2.7.0'
     implementation 'eu.bitwalker:UserAgentUtils:1.21'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1'
+    implementation 'cn.dev33:sa-token-spring-boot3-starter:1.38.0'
 }
 
 tasks.named('test') {
