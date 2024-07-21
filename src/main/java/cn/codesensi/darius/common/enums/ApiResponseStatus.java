@@ -21,7 +21,7 @@ public enum ApiResponseStatus {
     NOT_FOUND(404, "未找到该资源"),
     INTERNAL_ERROR(500, "服务器内部错误"),
 
-    // ---------- 账号登录状态码 ----------
+    // ---------- 账号状态码 ----------
     NOT_LOGIN(-1, "账号未登录"),
     ACCOUNT_FREEZE(-6, "账号被冻结"),
 

@@ -1,13 +1,17 @@
 package cn.codesensi.darius.common.advice;
 
 import cn.codesensi.darius.common.enums.ApiResponseStatus;
+import cn.codesensi.darius.common.exception.AuthException;
 import cn.codesensi.darius.common.exception.BusinessException;
 import cn.codesensi.darius.common.exception.ModeException;
 import cn.codesensi.darius.common.exception.SystemException;
 import cn.codesensi.darius.common.response.ApiResponseResult;
 import cn.codesensi.darius.common.response.R;
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.hutool.core.util.ObjUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -68,11 +72,34 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 未登录异常
+     * 参数校验异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiResponseResult<?> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        log.error("参数校验异常！原因是：{}", e.getMessage(), e);
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        String message = "参数校验不通过";
+        if (ObjUtil.isNotNull(fieldError)) {
+            message = fieldError.getDefaultMessage();
+        }
+        return R.fail(ApiResponseStatus.FAIL.getCode(), message);
+    }
+
+    /**
+     * 账号鉴权异常
+     */
+    @ExceptionHandler(AuthException.class)
+    public ApiResponseResult<?> authExceptionHandler(AuthException e) {
+        log.error("账号鉴权异常！原因是：{}", e.getMessage(), e);
+        return R.fail(ApiResponseStatus.FAIL.getCode(), e.getMessage());
+    }
+
+    /**
+     * 账号状态异常
      */
     @ExceptionHandler(NotLoginException.class)
     public ApiResponseResult<?> notLoginExceptionHandler(NotLoginException e) {
-        log.error("未登录异常！原因是：{}", e.getMessage(), e);
+        log.error("账号状态异常！原因是：{}", e.getMessage(), e);
         if (NotLoginException.TOKEN_FREEZE.equals(e.getType())) {
             return R.fail(ApiResponseStatus.ACCOUNT_FREEZE);
         }

@@ -103,3 +103,14 @@ thread:
 decorator:
   datasource:
     enabled: false
+
+# 项目配置
+darius:
+  config:
+    # 验证码
+    captcha:
+      enabled: true
+      # 验证码类型
+      type: image
+      # 图形验证码类型，验证码类型为图形时需配置
+      image-type: arithmetic
