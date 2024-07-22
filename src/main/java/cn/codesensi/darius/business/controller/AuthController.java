@@ -1,16 +1,15 @@
-package cn.codesensi.darius.auth.controller;
+package cn.codesensi.darius.business.controller;
 
-import cn.codesensi.darius.auth.dto.AccountUserDTO;
-import cn.codesensi.darius.auth.dto.CaptchaDTO;
-import cn.codesensi.darius.auth.service.AuthService;
-import cn.codesensi.darius.auth.strategy.CaptchaStrategyContext;
-import cn.codesensi.darius.auth.vo.CaptchaVO;
-import cn.codesensi.darius.auth.vo.LoginSuccessVO;
+import cn.codesensi.darius.business.dto.AccountUserDTO;
+import cn.codesensi.darius.business.dto.CaptchaDTO;
+import cn.codesensi.darius.business.service.AuthService;
+import cn.codesensi.darius.business.strategy.CaptchaStrategyContext;
+import cn.codesensi.darius.business.vo.CaptchaVO;
+import cn.codesensi.darius.business.vo.LoginSuccessVO;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

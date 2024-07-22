@@ -1,4 +1,4 @@
-package cn.codesensi.darius.auth.vo;
+package cn.codesensi.darius.business.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

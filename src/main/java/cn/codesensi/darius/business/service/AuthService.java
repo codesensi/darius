@@ -1,7 +1,7 @@
-package cn.codesensi.darius.auth.service;
+package cn.codesensi.darius.business.service;
 
-import cn.codesensi.darius.auth.dto.AccountUserDTO;
-import cn.codesensi.darius.auth.vo.LoginSuccessVO;
+import cn.codesensi.darius.business.dto.AccountUserDTO;
+import cn.codesensi.darius.business.vo.LoginSuccessVO;
 
 /**
  * 账号鉴权接口

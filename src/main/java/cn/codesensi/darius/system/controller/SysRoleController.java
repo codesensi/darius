@@ -15,8 +15,11 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 角色信息表 前端控制器
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * @author codesensi
  * @since 2024-05-15 22:08:36
  */
+@Slf4j
 @ApiResponseBody
 @RestController
 @Tag(name = "角色信息表接口", description = "角色信息表接口")
@@ -119,6 +123,20 @@ public class SysRoleController extends BaseController {
     @GetMapping("/detail/{id}")
     public SysRole detail(@PathVariable(name = "id") Long id) {
         return sysRoleService.getById(id);
+    }
+
+
+    /**
+     * 测试-查询用户角色权限码
+     */
+    // @Operation(summary = "测试-查询用户角色权限码")
+    // @Parameter(name = "userId", description = "用户id", required = true, in = ParameterIn.PATH)
+    // @GetMapping("/list/code/{userId}")
+    public void testListRoleCodeByUserId(@PathVariable(name = "userId") Long userId) {
+        List<String> roleCodeList = sysRoleService.listRoleCodeByUserId(userId);
+        for (String roleCode : roleCodeList) {
+            log.info("|-----roleCode:{}|-----", roleCode);
+        }
     }
 
 }

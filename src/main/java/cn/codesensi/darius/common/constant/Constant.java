@@ -26,4 +26,19 @@ public class Constant {
      */
     public static final String SCHEDULED_TASK_EXECUTOR_NAME = "scheduledTaskExecutor";
 
+    /**
+     * 超级管理员id
+     */
+    public static final Long ADMINISTRATOR_ID = 1L;
+
+    /**
+     * 超级管理员角色权限码
+     */
+    public static final String ADMINISTRATOR_ROLE_CODE = "admin-super";
+
+    /**
+     * 超级管理员菜单权限码
+     */
+    public static final String ADMINISTRATOR_MENU_CODE = "*:*:*";
+
 }

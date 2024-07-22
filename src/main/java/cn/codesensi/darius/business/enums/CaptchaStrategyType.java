@@ -1,4 +1,4 @@
-package cn.codesensi.darius.auth.enums;
+package cn.codesensi.darius.business.enums;
 
 import lombok.Getter;
 

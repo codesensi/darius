@@ -1,8 +1,8 @@
-package cn.codesensi.darius.auth.strategy.impl;
+package cn.codesensi.darius.business.strategy.impl;
 
-import cn.codesensi.darius.auth.dto.CaptchaDTO;
-import cn.codesensi.darius.auth.strategy.CaptchaStrategy;
-import cn.codesensi.darius.auth.vo.CaptchaVO;
+import cn.codesensi.darius.business.dto.CaptchaDTO;
+import cn.codesensi.darius.business.strategy.CaptchaStrategy;
+import cn.codesensi.darius.business.vo.CaptchaVO;
 import cn.codesensi.darius.common.exception.SystemException;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
