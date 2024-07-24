@@ -1,5 +1,6 @@
 package cn.codesensi.darius.system.service.impl;
 
+import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.system.entity.SysRole;
 import cn.codesensi.darius.system.mapper.SysRoleMapper;
@@ -26,7 +27,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      * @param userId 用户id
      * @return 用户角色权限码
      */
-    @Cacheable(cacheNames = "RoleCode", key = "#userId", unless = "#result == null")
+    @Cacheable(cacheNames = CaffeineConstant.USER_ROLE, key = "#userId", unless = "#result == null")
     @Override
     public List<String> listRoleCodeByUserId(Long userId) {
         // 超级管理员

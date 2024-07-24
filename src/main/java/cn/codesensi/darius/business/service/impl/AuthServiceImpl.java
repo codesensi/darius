@@ -2,11 +2,14 @@ package cn.codesensi.darius.business.service.impl;
 
 import cn.codesensi.darius.business.dto.AccountUserDTO;
 import cn.codesensi.darius.business.service.AuthService;
+import cn.codesensi.darius.business.service.CacheService;
 import cn.codesensi.darius.business.vo.LoginSuccessVO;
+import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.AuthException;
 import cn.codesensi.darius.common.properties.DariusConfigProperties;
 import cn.codesensi.darius.system.entity.SysUser;
 import cn.codesensi.darius.system.service.ISysUserService;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import jakarta.annotation.Resource;
@@ -29,6 +32,8 @@ public class AuthServiceImpl implements AuthService {
     private DariusConfigProperties dariusConfigProperties;
     @Resource
     private ISysUserService sysUserService;
+    @Resource
+    private CacheService cacheService;
 
     /**
      * 账号密码登录
@@ -38,8 +43,19 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public LoginSuccessVO account(@Validated @RequestBody AccountUserDTO accountUserDTO) {
-        if (dariusConfigProperties.getCaptcha().getEnabled() && StrUtil.isBlank(accountUserDTO.getCaptcha())) {
-            throw new AuthException("验证码不能为空");
+        // 校验验证码
+        if (dariusConfigProperties.getCaptcha().getEnabled()) {
+            if (StrUtil.isBlank(accountUserDTO.getCaptchaKey())) {
+                throw new AuthException("验证码唯一标识为空");
+            }
+            if (StrUtil.isBlank(accountUserDTO.getCaptcha())) {
+                throw new AuthException("验证码为空");
+            }
+            // 与缓存中的值对比
+            String captchaText = (String) cacheService.getValue(CaffeineConstant.CAPTCHA_IMAGE, accountUserDTO.getCaptchaKey());
+            if (!accountUserDTO.getCaptcha().equals(captchaText)) {
+                throw new AuthException("验证码错误");
+            }
         }
         SysUser sysUser = sysUserService.lambdaQuery()
                 .eq(SysUser::getUsername, accountUserDTO.getUsername())
@@ -50,7 +66,11 @@ public class AuthServiceImpl implements AuthService {
         if (!BCrypt.checkpw(accountUserDTO.getPassword(), sysUser.getPassword())) {
             throw new AuthException("账号密码错误");
         }
-        return null;
+        // 登录
+        StpUtil.login(sysUser.getId());
+        LoginSuccessVO loginSuccessVO = new LoginSuccessVO();
+        loginSuccessVO.setAccessToken(StpUtil.getTokenValue());
+        return loginSuccessVO;
     }
 
 }

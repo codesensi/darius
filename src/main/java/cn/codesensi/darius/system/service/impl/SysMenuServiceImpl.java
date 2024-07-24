@@ -1,5 +1,6 @@
 package cn.codesensi.darius.system.service.impl;
 
+import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.system.entity.SysMenu;
 import cn.codesensi.darius.system.mapper.SysMenuMapper;
@@ -26,7 +27,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      * @param userId 用户id
      * @return 用户菜单权限码
      */
-    @Cacheable(cacheNames = "MenuCode", key = "#userId", unless = "#result == null")
+    @Cacheable(cacheNames = CaffeineConstant.USER_MENU, key = "#userId", unless = "#result == null")
     @Override
     public List<String> listMenuCodeByUserId(Long userId) {
         // 超级管理员

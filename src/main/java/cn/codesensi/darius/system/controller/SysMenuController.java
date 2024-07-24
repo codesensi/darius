@@ -15,8 +15,11 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 菜单信息表 前端控制器
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * @author codesensi
  * @since 2024-05-15 22:09:56
  */
+@Slf4j
 @ApiResponseBody
 @RestController
 @Tag(name = "菜单信息表接口", description = "菜单信息表接口")
@@ -119,6 +123,20 @@ public class SysMenuController extends BaseController {
     @GetMapping("/detail/{id}")
     public SysMenu detail(@PathVariable(name = "id") Long id) {
         return sysMenuService.getById(id);
+    }
+
+    /**
+     * 测试-查询用户菜单权限码
+     */
+    @Operation(summary = "测试-查询用户菜单权限码")
+    @Parameter(name = "userId", description = "用户id", required = true, in = ParameterIn.PATH)
+    @GetMapping("/list/code/{userId}")
+    public List<String> testListMenuCodeByUserId(@PathVariable(name = "userId") Long userId) {
+        List<String> menuCodeList = sysMenuService.listMenuCodeByUserId(userId);
+        for (String menuCode : menuCodeList) {
+            log.info("|-----menuCode:{}|-----", menuCode);
+        }
+        return menuCodeList;
     }
 
 }

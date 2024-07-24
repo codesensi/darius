@@ -1,11 +1,14 @@
-package cn.codesensi.darius.business.strategy.impl;
+package cn.codesensi.darius.common.strategy.impl;
 
 import cn.codesensi.darius.business.dto.CaptchaDTO;
-import cn.codesensi.darius.business.strategy.CaptchaStrategy;
+import cn.codesensi.darius.business.service.CacheService;
+import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
+import cn.codesensi.darius.common.strategy.CaptchaStrategy;
 import cn.codesensi.darius.business.vo.CaptchaVO;
 import cn.codesensi.darius.common.exception.SystemException;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service("smsCaptchaStrategy")
 public class SmsCaptcha implements CaptchaStrategy {
+
+    @Resource
+    private CacheService cacheService;
 
     /**
      * 生成短信验证码
@@ -27,10 +33,9 @@ public class SmsCaptcha implements CaptchaStrategy {
         }
         // 生成验证码
         String result = RandomUtil.randomNumbers(6);
-        log.info("手机号：{}，生成的短信验证码：{}", phone, result);
-
-        // TODO 放入缓存
-
+        log.info("短信验证码手机号：{}，验证码内容：{}", phone, result);
+        // 放入缓存
+        cacheService.put(CaffeineConstant.CAPTCHA_SMS, phone, result, CaffeineConstant.EXPIRE_5_MIN);
         // 返回结果
         CaptchaVO captchaVO = new CaptchaVO();
         captchaVO.setKey(phone);

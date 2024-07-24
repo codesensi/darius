@@ -129,14 +129,15 @@ public class SysRoleController extends BaseController {
     /**
      * 测试-查询用户角色权限码
      */
-    // @Operation(summary = "测试-查询用户角色权限码")
-    // @Parameter(name = "userId", description = "用户id", required = true, in = ParameterIn.PATH)
-    // @GetMapping("/list/code/{userId}")
-    public void testListRoleCodeByUserId(@PathVariable(name = "userId") Long userId) {
+    @Operation(summary = "测试-查询用户角色权限码")
+    @Parameter(name = "userId", description = "用户id", required = true, in = ParameterIn.PATH)
+    @GetMapping("/list/code/{userId}")
+    public List<String> testListRoleCodeByUserId(@PathVariable(name = "userId") Long userId) {
         List<String> roleCodeList = sysRoleService.listRoleCodeByUserId(userId);
         for (String roleCode : roleCodeList) {
             log.info("|-----roleCode:{}|-----", roleCode);
         }
+        return roleCodeList;
     }
 
 }

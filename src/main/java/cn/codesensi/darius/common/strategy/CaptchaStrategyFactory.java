@@ -1,6 +1,6 @@
-package cn.codesensi.darius.business.strategy;
+package cn.codesensi.darius.common.strategy;
 
-import cn.codesensi.darius.business.enums.CaptchaStrategyType;
+import cn.codesensi.darius.common.enums.CaptchaStrategyType;
 import cn.codesensi.darius.common.exception.SystemException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

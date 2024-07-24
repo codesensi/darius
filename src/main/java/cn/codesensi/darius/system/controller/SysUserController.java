@@ -3,9 +3,11 @@ package cn.codesensi.darius.system.controller;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.base.BaseController;
+import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysUser;
 import cn.codesensi.darius.system.service.ISysUserService;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -119,6 +121,21 @@ public class SysUserController extends BaseController {
     @GetMapping("/detail/{id}")
     public SysUser detail(@PathVariable(name = "id") Long id) {
         return sysUserService.getById(id);
+    }
+
+    /**
+     * 账号封禁
+     */
+    @OperateLog(operateType = OperateType.UPDATE, description = "账号封禁")
+    @ApiOperationSupport(order = 6)
+    @Operation(summary = "账号封禁")
+    @PutMapping("/disable/{id}")
+    public void disable(@PathVariable(name = "id") Long id) {
+        // 1.踢下线
+        StpUtil.kickout(id);
+        // 2.封禁
+        StpUtil.disable(id, 86400);
+        sysUserService.lambdaUpdate().set(SysUser::getStatus, Constant.ONE_INT).eq(SysUser::getId, id).update();
     }
 
 }

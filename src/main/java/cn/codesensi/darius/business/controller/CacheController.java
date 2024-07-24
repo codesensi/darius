@@ -7,8 +7,8 @@ import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,22 +29,22 @@ import java.util.List;
 public class CacheController {
 
     @Resource
-    private CaffeineCacheManager caffeineCacheManager;
+    private CacheManager cacheManager;
 
     /**
      * Caffeine缓存统计信息
      */
     @Operation(summary = "Caffeine缓存统计信息")
     @GetMapping("/caffeine/stats")
-    public List<CaffeineStatsVO> cacheStats() {
-        Collection<String> cacheNames = caffeineCacheManager.getCacheNames();
+    public List<CaffeineStatsVO> caffeineStats() {
+        Collection<String> cacheNames = cacheManager.getCacheNames();
         return cacheNames.stream()
-                .map(name -> {
-                    CaffeineCache caffeineCache = (CaffeineCache) caffeineCacheManager.getCache(name);
+                .map(cacheName -> {
+                    CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(cacheName);
                     if (caffeineCache != null) {
-                        Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
-                        CacheStats stats = nativeCache.stats();
-                        return getCaffeineStatsVO(name, stats);
+                        Cache<Object, Object> cache = caffeineCache.getNativeCache();
+                        CacheStats stats = cache.stats();
+                        return getCaffeineStatsVO(cacheName, stats);
                     }
                     return null;
                 })
@@ -54,12 +54,12 @@ public class CacheController {
     /**
      * 组装Caffeine信息统计对象
      *
-     * @param name  缓存管理器名称
-     * @param stats 统计信息
+     * @param cacheName 缓存名称
+     * @param stats     统计信息
      */
-    private static CaffeineStatsVO getCaffeineStatsVO(String name, CacheStats stats) {
+    private static CaffeineStatsVO getCaffeineStatsVO(String cacheName, CacheStats stats) {
         CaffeineStatsVO caffeineStatsVO = new CaffeineStatsVO();
-        caffeineStatsVO.setName(name);
+        caffeineStatsVO.setCacheName(cacheName);
         caffeineStatsVO.setHitCount(stats.hitCount());
         caffeineStatsVO.setMissCount(stats.missCount());
         caffeineStatsVO.setLoadSuccessCount(stats.loadSuccessCount());

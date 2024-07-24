@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.satoken;
+package cn.codesensi.darius.common.satoken;
 
 import cn.codesensi.darius.system.service.ISysMenuService;
 import cn.codesensi.darius.system.service.ISysRoleService;

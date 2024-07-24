@@ -21,8 +21,8 @@ public class CaffeineStatsVO implements Serializable {
     /**
      * 缓存管理器名称
      */
-    @Schema(description = "缓存管理器名称")
-    private String name;
+    @Schema(description = "缓存名称")
+    private String cacheName;
 
     /**
      * 命中次数

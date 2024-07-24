@@ -37,6 +37,12 @@ public class AccountUserDTO implements Serializable {
     private String password;
 
     /**
+     * 验证码唯一标识
+     */
+    @Schema(description = "验证码唯一标识")
+    private String captchaKey;
+
+    /**
      * 用户密码
      */
     @Schema(description = "验证码")

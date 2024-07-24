@@ -3,7 +3,7 @@ package cn.codesensi.darius.business.controller;
 import cn.codesensi.darius.business.dto.AccountUserDTO;
 import cn.codesensi.darius.business.dto.CaptchaDTO;
 import cn.codesensi.darius.business.service.AuthService;
-import cn.codesensi.darius.business.strategy.CaptchaStrategyContext;
+import cn.codesensi.darius.common.strategy.CaptchaStrategyContext;
 import cn.codesensi.darius.business.vo.CaptchaVO;
 import cn.codesensi.darius.business.vo.LoginSuccessVO;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;

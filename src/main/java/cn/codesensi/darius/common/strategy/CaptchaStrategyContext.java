@@ -1,7 +1,7 @@
-package cn.codesensi.darius.business.strategy;
+package cn.codesensi.darius.common.strategy;
 
 import cn.codesensi.darius.business.dto.CaptchaDTO;
-import cn.codesensi.darius.business.enums.CaptchaStrategyType;
+import cn.codesensi.darius.common.enums.CaptchaStrategyType;
 import cn.codesensi.darius.business.vo.CaptchaVO;
 import cn.codesensi.darius.common.exception.SystemException;
 import jakarta.annotation.Resource;
@@ -21,6 +21,9 @@ public class CaptchaStrategyContext {
     @Resource
     private CaptchaStrategyFactory captchaStrategyFactory;
 
+    /**
+     * 生成验证码
+     */
     public CaptchaVO captcha(CaptchaDTO captchaDTO) {
         // 将属性的值转换成具体的枚举
         String type = captchaDTO.getType();

@@ -14,9 +14,6 @@ spring:
   # 缓存
   cache:
     type: caffeine
-    caffeine:
-      # 缓存的最大容量(1000)|缓存项在写入后的失效时间间隔(86400秒)|启用缓存统计
-      spec: maximumSize=1000,expireAfterWrite=86400s,recordStats
 
 # logback日志配置
 logging:

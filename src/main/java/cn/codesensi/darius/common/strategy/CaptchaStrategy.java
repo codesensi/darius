@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.strategy;
+package cn.codesensi.darius.common.strategy;
 
 import cn.codesensi.darius.business.dto.CaptchaDTO;
 import cn.codesensi.darius.business.vo.CaptchaVO;
