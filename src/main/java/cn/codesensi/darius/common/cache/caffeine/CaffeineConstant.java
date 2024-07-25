@@ -4,25 +4,17 @@ public class CaffeineConstant {
 
     // -------------------- 缓存名称 --------------------
     /**
-     * 默认缓存名称
+     * 默认缓存
      */
-    public static final String CACHE_DEFAULT = "CACHE:DEFAULT";
+    public static final String CACHE_DEFAULT = "default";
     /**
-     * 图形验证码
+     * 验证码缓存
      */
-    public static final String CAPTCHA_IMAGE = "CAPTCHA:IMAGE";
+    public static final String CACHE_CAPTCHA = "captcha";
     /**
-     * 短信验证码
+     * 用户缓存
      */
-    public static final String CAPTCHA_SMS = "CAPTCHA:SMS";
-    /**
-     * 用户角色权限码
-     */
-    public static final String USER_ROLE = "USER:ROLE";
-    /**
-     * 用户菜单权限码
-     */
-    public static final String USER_MENU = "USER:MENU";
+    public static final String CACHE_USER = "user";
 
 
     // -------------------- 最大缓存数量 --------------------

@@ -27,7 +27,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      * @param userId 用户id
      * @return 用户菜单权限码
      */
-    @Cacheable(cacheNames = CaffeineConstant.USER_MENU, key = "#userId", unless = "#result == null")
+    @Cacheable(cacheNames = CaffeineConstant.CACHE_USER, key ="'menu:' + #userId")
     @Override
     public List<String> listMenuCodeByUserId(Long userId) {
         // 超级管理员

@@ -2,11 +2,11 @@ package cn.codesensi.darius.business.service.impl;
 
 import cn.codesensi.darius.business.dto.AccountUserDTO;
 import cn.codesensi.darius.business.service.AuthService;
-import cn.codesensi.darius.business.service.CacheService;
+import cn.codesensi.darius.business.service.CaffeineService;
 import cn.codesensi.darius.business.vo.LoginSuccessVO;
 import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.AuthException;
-import cn.codesensi.darius.common.properties.DariusConfigProperties;
+import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.codesensi.darius.system.entity.SysUser;
 import cn.codesensi.darius.system.service.ISysUserService;
 import cn.dev33.satoken.stp.StpUtil;
@@ -29,11 +29,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AuthServiceImpl implements AuthService {
 
     @Resource
-    private DariusConfigProperties dariusConfigProperties;
+    private DariusProperties dariusProperties;
     @Resource
     private ISysUserService sysUserService;
     @Resource
-    private CacheService cacheService;
+    private CaffeineService caffeineService;
 
     /**
      * 账号密码登录
@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginSuccessVO account(@Validated @RequestBody AccountUserDTO accountUserDTO) {
         // 校验验证码
-        if (dariusConfigProperties.getCaptcha().getEnabled()) {
+        if (dariusProperties.getCaptcha().getEnabled()) {
             if (StrUtil.isBlank(accountUserDTO.getCaptchaKey())) {
                 throw new AuthException("验证码唯一标识为空");
             }
@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
                 throw new AuthException("验证码为空");
             }
             // 与缓存中的值对比
-            String captchaText = (String) cacheService.getValue(CaffeineConstant.CAPTCHA_IMAGE, accountUserDTO.getCaptchaKey());
+            String captchaText = (String) caffeineService.get(CaffeineConstant.CACHE_CAPTCHA, accountUserDTO.getCaptchaKey());
             if (!accountUserDTO.getCaptcha().equals(captchaText)) {
                 throw new AuthException("验证码错误");
             }

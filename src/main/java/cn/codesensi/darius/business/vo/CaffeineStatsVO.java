@@ -19,10 +19,10 @@ public class CaffeineStatsVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 缓存管理器名称
+     * 缓存名称
      */
     @Schema(description = "缓存名称")
-    private String cacheName;
+    private String name;
 
     /**
      * 命中次数

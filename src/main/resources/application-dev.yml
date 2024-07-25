@@ -106,7 +106,6 @@ decorator:
 
 # 项目配置
 darius:
-  config:
     # 验证码
     captcha:
       enabled: true

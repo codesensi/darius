@@ -1,6 +1,6 @@
 package cn.codesensi.darius.common.satoken;
 
-import cn.codesensi.darius.common.properties.DariusConfigProperties;
+import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
@@ -24,7 +24,7 @@ import java.util.List;
 public class SaTokenConfig implements WebMvcConfigurer {
 
     @Resource
-    private DariusConfigProperties dariusConfigProperties;
+    private DariusProperties dariusProperties;
 
     /**
      * 注册 Sa-Token 路由拦截器
@@ -32,7 +32,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 从配置文件中加载鉴权路径
-        DariusConfigProperties.SaToken saToken = dariusConfigProperties.getSaToken();
+        DariusProperties.SaToken saToken = dariusProperties.getSaToken();
         List<String> allPath = Arrays.asList(saToken.getAllPath().split(","));
         registry.addInterceptor(new SaInterceptor(handler -> {
             // 登录校验

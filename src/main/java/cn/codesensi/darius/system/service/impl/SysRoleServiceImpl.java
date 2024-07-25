@@ -27,7 +27,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      * @param userId 用户id
      * @return 用户角色权限码
      */
-    @Cacheable(cacheNames = CaffeineConstant.USER_ROLE, key = "#userId", unless = "#result == null")
+    @Cacheable(cacheNames = CaffeineConstant.CACHE_USER, key = "'role:' + #userId")
     @Override
     public List<String> listRoleCodeByUserId(Long userId) {
         // 超级管理员

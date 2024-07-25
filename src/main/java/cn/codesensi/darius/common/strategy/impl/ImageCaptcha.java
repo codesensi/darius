@@ -1,11 +1,11 @@
 package cn.codesensi.darius.common.strategy.impl;
 
 import cn.codesensi.darius.business.dto.CaptchaDTO;
-import cn.codesensi.darius.business.service.CacheService;
+import cn.codesensi.darius.business.service.CaffeineService;
 import cn.codesensi.darius.business.vo.CaptchaVO;
 import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.SystemException;
-import cn.codesensi.darius.common.properties.DariusConfigProperties;
+import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.codesensi.darius.common.strategy.CaptchaStrategy;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
@@ -25,16 +25,16 @@ import java.lang.reflect.InvocationTargetException;
 public class ImageCaptcha implements CaptchaStrategy {
 
     @Resource
-    private DariusConfigProperties dariusConfigProperties;
+    private DariusProperties dariusProperties;
     @Resource
-    private CacheService cacheService;
+    private CaffeineService caffeineService;
 
     /**
      * 生成图形验证码
      */
     @Override
     public CaptchaVO captcha(CaptchaDTO captchaDTO) {
-        DariusConfigProperties.ImageType imageType = dariusConfigProperties.getCaptcha().getImageType();
+        DariusProperties.ImageType imageType = dariusProperties.getCaptcha().getImageType();
         String name = imageType.name();
         // 构建类名
         name = name.toLowerCase();
@@ -51,10 +51,10 @@ public class ImageCaptcha implements CaptchaStrategy {
             }
             // 验证码结果
             String text = captcha.text();
-            String key = UUID.fastUUID().toString(true);
+            String key = "image:" + UUID.fastUUID().toString(true);
             log.info("图形验证码唯一标识：{}，验证码内容：{}", key, text);
             // 放入缓存
-            cacheService.put(CaffeineConstant.CAPTCHA_IMAGE, key, text, CaffeineConstant.EXPIRE_5_MIN);
+            caffeineService.put(CaffeineConstant.CACHE_CAPTCHA, key, text, CaffeineConstant.EXPIRE_5_MIN);
             // 返回结果
             captchaVO.setKey(key);
             captchaVO.setResult(captcha.toBase64());

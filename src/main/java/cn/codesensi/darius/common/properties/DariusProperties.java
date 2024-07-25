@@ -1,16 +1,19 @@
 package cn.codesensi.darius.common.properties;
 
+import com.github.benmanes.caffeine.cache.CaffeineSpec;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * 项目配置实体类
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "darius.config")
-public class DariusConfigProperties {
+@ConfigurationProperties(prefix = "darius")
+public class DariusProperties {
 
     /**
      * 演示模式
@@ -26,6 +29,28 @@ public class DariusConfigProperties {
      * 自定义sa-token配置
      */
     private SaToken saToken;
+
+    /**
+     * 本地缓存配置
+     */
+    private Caffeine caffeine;
+
+    /**
+     * 本地缓存配置
+     */
+    @Data
+    public static class Caffeine {
+
+        /**
+         * 默认规则
+         */
+        private String cacheSpecification;
+
+        /**
+         * 自定义规则
+         */
+        private Map<String, String> caffeineSpec;
+    }
 
     /**
      * 自定义sa-token配置
