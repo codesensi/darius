@@ -1,5 +1,6 @@
 package cn.codesensi.darius.common.satoken;
 
+import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.dev33.satoken.interceptor.SaInterceptor;
 import cn.dev33.satoken.router.SaRouter;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Sa-Token 拦截器
@@ -33,11 +33,14 @@ public class SaTokenConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // 从配置文件中加载鉴权路径
         DariusProperties.SaToken saToken = dariusProperties.getSaToken();
-        List<String> allPath = Arrays.asList(saToken.getAllPath().split(","));
+        String loginNotMatchPath = saToken.getLoginNotMatchPath();
+        final String[] loginNotMatch = loginNotMatchPath.split(",");
         registry.addInterceptor(new SaInterceptor(handler -> {
             // 登录校验
-            SaRouter.match(allPath).notMatch(Arrays.asList(saToken.getLoginNotMatchPath().split(","))).check(r -> StpUtil.checkLogin());
-        })).addPathPatterns(allPath);
+            // SaRouter.match(Constant.ROOT_PATH).notMatch(Arrays.asList(loginNotMatch)).check(r -> StpUtil.checkLogin());
+            // 系统功能：管理员角色
+            // SaRouter.match(Constant.SYSTEM_PATH).check(r -> StpUtil.hasRole(Constant.ROLE_ADMIN_CODE));
+        })).addPathPatterns(Constant.ROOT_PATH);
     }
 
 }

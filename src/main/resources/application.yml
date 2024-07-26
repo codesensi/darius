@@ -13,6 +13,7 @@ spring:
     timeout-per-shutdown-phase: 60s
   # 缓存
   cache:
+    # caffeine 增加缓存，需在cn.codesensi.darius.common.cache.caffeine.CaffeineEnum中新增对应枚举
     type: caffeine
 
 # logback日志配置
@@ -102,17 +103,5 @@ darius:
     demo-mode: false
     # 自定义sa-token配置
     sa-token:
-      # 全路径
-      all-path: /**
       # 不校验登录路径
       login-not-match-path: /doc.html,/favicon.ico,/v3/api-docs/**,/webjars/**,/auth/captcha,/auth/login/account
-    # 本地缓存配置
-    caffeine:
-      # 默认缓存规则
-      cacheSpecification: maximumSize=1024,expireAfterWrite=43200s,recordStats
-      # 自定义缓存规则
-      caffeineSpec:
-        # 用户类缓存规则
-        user: maximumSize=1024,expireAfterWrite=43200s,recordStats
-        # 验证码类缓存规则
-        captcha: maximumSize=1024,expireAfterWrite=300s,recordStats

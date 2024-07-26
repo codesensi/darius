@@ -31,8 +31,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public List<String> listRoleCodeByUserId(Long userId) {
         // 超级管理员
-        if (Constant.ADMINISTRATOR_ID.equals(userId)) {
-            return List.of(Constant.ADMINISTRATOR_ROLE_CODE);
+        if (Constant.ADMIN_ID.equals(userId)) {
+            return List.of(Constant.PERMIT_ADMIN_CODE);
         }
         return baseMapper.listRoleCodeByUserId(userId);
     }

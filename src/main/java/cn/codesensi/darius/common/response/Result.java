@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @since 2024/1/10 22:44
  */
 @Data
-public class ApiResponseResult<T> implements Serializable {
+public class Result<T> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class ApiResponseResult<T> implements Serializable {
      */
     private T data;
 
-    public ApiResponseResult(Integer code, String message, T data) {
+    public Result(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;

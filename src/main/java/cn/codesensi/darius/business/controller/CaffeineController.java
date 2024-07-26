@@ -4,13 +4,14 @@ import cn.codesensi.darius.business.service.CaffeineService;
 import cn.codesensi.darius.business.vo.CaffeineListVO;
 import cn.codesensi.darius.business.vo.CaffeineStatsVO;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
+import cn.codesensi.darius.common.response.R;
+import cn.codesensi.darius.common.response.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,6 @@ import java.util.List;
  * @author codesensi
  * @since 2024-07-21 11:09:56
  */
-@Slf4j
 @ApiResponseBody
 @RestController
 @Tag(name = "Caffeine缓存接口", description = "Caffeine缓存接口")
@@ -43,8 +43,8 @@ public class CaffeineController {
             @Parameter(name = "key", description = "缓存键", required = true, in = ParameterIn.QUERY)
     })
     @GetMapping("/get")
-    public Object get(@RequestParam(name = "name") String name, @RequestParam(name = "key") Object key) {
-        return caffeineService.get(name, key);
+    public Result<Object> get(@RequestParam(name = "name") String name, @RequestParam(name = "key") Object key) {
+        return R.ok(caffeineService.get(name, key));
     }
 
     /**

@@ -1,31 +1,31 @@
 package cn.codesensi.darius.common.cache.caffeine;
 
-import cn.codesensi.darius.common.properties.DariusProperties;
-import jakarta.annotation.Resource;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class CaffeineConfig {
 
-    @Resource
-    private DariusProperties dariusProperties;
 
     /**
      * Caffeine缓存配置
      */
     @Bean
-    public DariusCaffeineCacheManager dariusCaffeineCacheManager() {
-        DariusCaffeineCacheManager dariusCaffeineCacheManager = new DariusCaffeineCacheManager();
-        // 异步保存缓存
-        dariusCaffeineCacheManager.setAsyncCacheMode(true);
-        // 不保存空值
-        dariusCaffeineCacheManager.setAllowNullValues(false);
-        // 加载默认缓则规则
-        dariusCaffeineCacheManager.setCacheSpecification(dariusProperties.getCaffeine().getCacheSpecification());
-        // 加载自定义缓存规则
-        dariusCaffeineCacheManager.setCaffeineSpec(dariusProperties.getCaffeine().getCaffeineSpec());
-        return dariusCaffeineCacheManager;
+    public CacheManager cacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        List<CaffeineCache> caches = new ArrayList<>();
+        // 循环添加枚举类中自定义的缓存
+        for (CaffeineEnum cacheEnum : CaffeineEnum.values()) {
+            caches.add(CaffeineUtil.buildCaffeineCache(cacheEnum.getName(), CaffeineConstant.SIZE_DEFAULT, cacheEnum.getExpire()));
+        }
+        cacheManager.setCaches(caches);
+        return cacheManager;
     }
 
 }

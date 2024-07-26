@@ -29,6 +29,14 @@ public interface CaffeineService {
     void put(String name, Object key, Object value, Long expire);
 
     /**
+     * 删除缓存
+     *
+     * @param name 缓存名称
+     * @param key  缓存键
+     */
+    void evict(String name, Object key);
+
+    /**
      * 获取缓存统计信息
      */
     List<CaffeineStatsVO> stats();

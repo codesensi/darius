@@ -4,14 +4,14 @@ import cn.codesensi.darius.business.service.CaffeineService;
 import cn.codesensi.darius.business.vo.CaffeineListVO;
 import cn.codesensi.darius.business.vo.CaffeineStatsVO;
 import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
-import cn.codesensi.darius.common.cache.caffeine.DariusCaffeineCacheManager;
+import cn.codesensi.darius.common.cache.caffeine.CaffeineUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Caffeine缓存接口实现
@@ -32,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class CaffeineServiceImpl implements CaffeineService {
 
     @Resource
-    private DariusCaffeineCacheManager dariusCaffeineCacheManager;
+    private CacheManager cacheManager;
 
     /**
      * 获取缓存值
@@ -42,11 +41,10 @@ public class CaffeineServiceImpl implements CaffeineService {
      */
     @Override
     public Object get(String name, Object key) {
-        CaffeineCache caffeineCache = (CaffeineCache) dariusCaffeineCacheManager.getCache(name);
+        CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(name);
         if (caffeineCache != null) {
-            Cache<Object, Object> cache = caffeineCache.getNativeCache();
-            Object value = cache.getIfPresent(key);
-            log.info("从缓存中获取到键值：{}:{}", key, value);
+            Object value = caffeineCache.get(key, Object.class);
+            log.info("获取缓存成功，缓存名称：{}，键值：{}:{}", name, key, value);
             return value;
         }
         return null;
@@ -71,17 +69,27 @@ public class CaffeineServiceImpl implements CaffeineService {
         if (expire == null) {
             expire = CaffeineConstant.EXPIRE_DEFAULT;
         }
-        CaffeineCache caffeineCache = (CaffeineCache) dariusCaffeineCacheManager.getCache(name);
+        CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(name);
         if (caffeineCache == null) {
-            caffeineCache = new CaffeineCache(name, Caffeine.newBuilder()
-                    .maximumSize(CaffeineConstant.SIZE_DEFAULT)
-                    .expireAfterWrite(expire, TimeUnit.SECONDS)
-                    .recordStats()
-                    .build(),
-                    false);
+            caffeineCache = CaffeineUtil.buildCaffeineCache(name, CaffeineConstant.SIZE_DEFAULT, expire);
         }
         caffeineCache.put(key, value);
-        log.info("放入缓存信息，缓存名称：{}，缓存键值：{}:{}，过期时间：{}", name, key, value, expire);
+        log.info("缓存成功，缓存名称：{}，键值：{}:{}，过期秒数：{}", name, key, value, expire);
+    }
+
+    /**
+     * 删除缓存
+     *
+     * @param name 缓存名称
+     * @param key  缓存键
+     */
+    @Override
+    public void evict(String name, Object key) {
+        CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(name);
+        if (caffeineCache != null) {
+            caffeineCache.evict(key);
+            log.info("删除缓存成功，缓存名称：{}，键：{}", name, key);
+        }
     }
 
     /**
@@ -89,10 +97,10 @@ public class CaffeineServiceImpl implements CaffeineService {
      */
     @Override
     public List<CaffeineStatsVO> stats() {
-        Collection<String> cacheNames = dariusCaffeineCacheManager.getCacheNames();
+        Collection<String> cacheNames = cacheManager.getCacheNames();
         return cacheNames.stream()
                 .map(name -> {
-                    CaffeineCache caffeineCache = (CaffeineCache) dariusCaffeineCacheManager.getCache(name);
+                    CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(name);
                     if (caffeineCache != null) {
                         Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
                         // 统计信息
@@ -109,10 +117,10 @@ public class CaffeineServiceImpl implements CaffeineService {
      */
     @Override
     public List<CaffeineListVO> list() {
-        Collection<String> cacheNames = dariusCaffeineCacheManager.getCacheNames();
+        Collection<String> cacheNames = cacheManager.getCacheNames();
         return cacheNames.stream()
                 .map(name -> {
-                    CaffeineCache caffeineCache = (CaffeineCache) dariusCaffeineCacheManager.getCache(name);
+                    CaffeineCache caffeineCache = (CaffeineCache) cacheManager.getCache(name);
                     if (caffeineCache != null) {
                         Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
                         // 缓存内容转为map集合

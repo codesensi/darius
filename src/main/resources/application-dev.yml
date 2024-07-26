@@ -108,7 +108,7 @@ decorator:
 darius:
     # 验证码
     captcha:
-      enabled: true
+      enabled: false
       # 验证码类型
       type: image
       # 图形验证码类型，验证码类型为图形时需配置

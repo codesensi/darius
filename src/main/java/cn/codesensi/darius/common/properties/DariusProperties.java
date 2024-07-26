@@ -31,37 +31,10 @@ public class DariusProperties {
     private SaToken saToken;
 
     /**
-     * 本地缓存配置
-     */
-    private Caffeine caffeine;
-
-    /**
-     * 本地缓存配置
-     */
-    @Data
-    public static class Caffeine {
-
-        /**
-         * 默认规则
-         */
-        private String cacheSpecification;
-
-        /**
-         * 自定义规则
-         */
-        private Map<String, String> caffeineSpec;
-    }
-
-    /**
      * 自定义sa-token配置
      */
     @Data
     public static class SaToken {
-
-        /**
-         * 全路径
-         */
-        private String allPath;
 
         /**
          * 不校验登录路径

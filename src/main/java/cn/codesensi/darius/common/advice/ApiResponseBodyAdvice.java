@@ -1,7 +1,7 @@
 package cn.codesensi.darius.common.advice;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
-import cn.codesensi.darius.common.response.ApiResponseResult;
+import cn.codesensi.darius.common.response.Result;
 import cn.codesensi.darius.common.response.R;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +47,7 @@ public class ApiResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             return JSONUtil.toJsonStr(R.ok(body));
         }
         // 防止重复包裹的问题出现
-        if (body instanceof ApiResponseResult) {
+        if (body instanceof Result) {
             return body;
         }
         return R.ok(body);

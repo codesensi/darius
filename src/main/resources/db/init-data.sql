@@ -165,9 +165,9 @@ CREATE TABLE IF NOT EXISTS `sys_role_menu`
   ROW_FORMAT = DYNAMIC COMMENT ='角色菜单关联表';
 
 -- 超级管理员
-INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1, 'administrator', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '超级管理员', '110105197000000001', 'administrator@gmailcom', '18900000000', 0, 'https://lsky.codesensi.cn:1443/i/2024/02/06/65c242e1493f8.png', 0, 0, '超级管理员', 1, '2024-05-26 17:19:48', NULL, '2024-07-20 22:41:42', 0, 0);
+INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1, 'admin', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '超级管理员', '110105197000000001', 'administrator@gmailcom', '18900000000', 0, 'https://lsky.codesensi.cn:1443/i/2024/02/06/65c242e1493f8.png', 0, 0, '超级管理员', 1, '2024-05-26 17:19:48', NULL, '2024-07-20 22:41:42', 0, 0);
 -- 超级管理员角色
-INSERT INTO `sys_role` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1815028207546576896, '超级管理员', 'administrator', 0, '超级管理员', 0, 0, 0, '超级管理员', 1, '2024-07-21 22:17:46', NULL, '2024-07-21 22:17:46', 0, 0);
+INSERT INTO `sys_role` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1815028207546576896, '超级管理员', 'admin', 0, '超级管理员', 0, 0, 0, '超级管理员', 1, '2024-07-21 22:17:46', NULL, '2024-07-21 22:17:46', 0, 0);
 -- 用户角色关联
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1815028599999238144, 1, 1815028207546576896, 1, '2024-07-21 22:19:01', NULL, '2024-07-21 22:19:01', 0, 0);
 

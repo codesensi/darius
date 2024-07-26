@@ -29,16 +29,26 @@ public class Constant {
     /**
      * 超级管理员id
      */
-    public static final Long ADMINISTRATOR_ID = 1L;
+    public static final Long ADMIN_ID = 1L;
 
     /**
-     * 超级管理员角色权限码
+     * 超级管理员权限码
      */
-    public static final String ADMINISTRATOR_ROLE_CODE = "admin-super";
+    public static final String PERMIT_ADMIN_CODE = "*";
 
     /**
-     * 超级管理员菜单权限码
+     * 根接口路径
      */
-    public static final String ADMINISTRATOR_MENU_CODE = "*:*:*";
+    public static final String ROOT_PATH = "/**";
+
+    /**
+     * 系统管理接口路径
+     */
+    public static final String SYSTEM_PATH = "/system/**";
+
+    /**
+     * 超级管理员角色标识
+     */
+    public static final String ROLE_ADMIN_CODE = "admin";
 
 }

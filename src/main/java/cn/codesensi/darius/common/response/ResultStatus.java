@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.enums;
+package cn.codesensi.darius.common.response;
 
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ import lombok.Getter;
  * @since 2024/1/10 22:44
  */
 @Getter
-public enum ApiResponseStatus {
+public enum ResultStatus {
 
     FAIL(0, "失败"),
     OK(1, "成功"),
@@ -37,7 +37,7 @@ public enum ApiResponseStatus {
      */
     private final String message;
 
-    ApiResponseStatus(Integer code, String message) {
+    ResultStatus(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
