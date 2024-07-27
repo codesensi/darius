@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.dto;
+package cn.codesensi.darius.system.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 验证码对象
+ * 获取验证码参数
  */
 @Data
 @Accessors(chain = true)
-@Schema(name = "验证码对象", description = "验证码对象")
+@Schema(name = "获取验证码参数", description = "获取验证码参数")
 public class CaptchaDTO {
 
     /**

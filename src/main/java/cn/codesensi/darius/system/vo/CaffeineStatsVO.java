@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.vo;
+package cn.codesensi.darius.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -8,11 +8,11 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Caffeine信息统计对象
+ * 信息统计结果参数
  */
 @Data
 @Accessors(chain = true)
-@Schema(name = "Caffeine信息统计对象", description = "Caffeine信息统计对象")
+@Schema(name = "信息统计结果参数", description = "信息统计结果参数")
 public class CaffeineStatsVO implements Serializable {
 
     @Serial

@@ -1,8 +1,8 @@
 package cn.codesensi.darius.common.strategy.impl;
 
-import cn.codesensi.darius.business.dto.CaptchaDTO;
-import cn.codesensi.darius.business.service.CaffeineService;
-import cn.codesensi.darius.business.vo.CaptchaVO;
+import cn.codesensi.darius.system.dto.CaptchaDTO;
+import cn.codesensi.darius.system.service.CaffeineService;
+import cn.codesensi.darius.system.vo.CaptchaVO;
 import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.SystemException;
 import cn.codesensi.darius.common.strategy.CaptchaStrategy;

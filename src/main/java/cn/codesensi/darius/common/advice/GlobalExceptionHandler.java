@@ -9,6 +9,7 @@ import cn.codesensi.darius.common.response.Result;
 import cn.codesensi.darius.common.response.R;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.hutool.core.util.ObjUtil;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -78,7 +79,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public Result<?> missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
         log.error("参数缺失异常！原因是：{}", e.getMessage(), e);
-        return R.fail(ResultStatus.PARAMETER_MISSING);
+        return R.fail(ResultStatus.PARAMETER_MISSING.getCode(), "缺少必须参数：" + e.getParameterName());
     }
 
     /**

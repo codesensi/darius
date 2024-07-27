@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.*;
  * @author codesensi
  * @since 2024-05-15 22:09:57
  */
-@ApiResponseBody
-@RestController
-@Tag(name = "角色菜单关联表接口", description = "角色菜单关联表接口")
-@RequestMapping("/system/sys-role-menu")
+// @ApiResponseBody
+// @RestController
+// @Tag(name = "角色菜单关联表接口", description = "角色菜单关联表接口")
+// @RequestMapping("/system/sys-role-menu")
 public class SysRoleMenuController extends BaseController {
 
     @Resource

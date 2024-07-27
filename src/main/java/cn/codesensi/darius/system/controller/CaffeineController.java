@@ -1,8 +1,8 @@
-package cn.codesensi.darius.business.controller;
+package cn.codesensi.darius.system.controller;
 
-import cn.codesensi.darius.business.service.CaffeineService;
-import cn.codesensi.darius.business.vo.CaffeineListVO;
-import cn.codesensi.darius.business.vo.CaffeineStatsVO;
+import cn.codesensi.darius.system.service.CaffeineService;
+import cn.codesensi.darius.system.vo.CaffeineListVO;
+import cn.codesensi.darius.system.vo.CaffeineStatsVO;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.response.R;
 import cn.codesensi.darius.common.response.Result;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Caffeine缓存 前端控制器
+ * 缓存 前端控制器
  *
  * @author codesensi
  * @since 2024-07-21 11:09:56
  */
 @ApiResponseBody
 @RestController
-@Tag(name = "Caffeine缓存接口", description = "Caffeine缓存接口")
+@Tag(name = "缓存接口", description = "缓存接口")
 @RequestMapping("/caffeine")
 public class CaffeineController {
 

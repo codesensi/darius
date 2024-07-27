@@ -1,7 +1,7 @@
 package cn.codesensi.darius.common.strategy;
 
-import cn.codesensi.darius.business.dto.CaptchaDTO;
-import cn.codesensi.darius.business.vo.CaptchaVO;
+import cn.codesensi.darius.system.dto.CaptchaDTO;
+import cn.codesensi.darius.system.vo.CaptchaVO;
 
 /**
  * 验证码策略接口类

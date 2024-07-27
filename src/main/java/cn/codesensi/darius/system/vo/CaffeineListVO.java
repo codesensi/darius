@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.vo;
+package cn.codesensi.darius.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 缓存内容对象
+ * 缓存内容结果参数
  */
 @Data
 @Accessors(chain = true)
-@Schema(name = "缓存内容对象", description = "缓存内容对象")
+@Schema(name = "缓存内容结果参数", description = "缓存内容结果参数")
 public class CaffeineListVO implements Serializable {
 
     @Serial

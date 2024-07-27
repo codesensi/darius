@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.*;
  * @author codesensi
  * @since 2024-05-15 22:08:36
  */
-@ApiResponseBody
-@RestController
-@Tag(name = "用户角色关联表接口", description = "用户角色关联表接口")
-@RequestMapping("/system/sys-user-role")
+// @ApiResponseBody
+// @RestController
+// @Tag(name = "用户角色关联表接口", description = "用户角色关联表接口")
+// @RequestMapping("/system/sys-user-role")
 public class SysUserRoleController extends BaseController {
 
     @Resource

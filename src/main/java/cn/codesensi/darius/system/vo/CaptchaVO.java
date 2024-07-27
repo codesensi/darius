@@ -1,15 +1,15 @@
-package cn.codesensi.darius.business.vo;
+package cn.codesensi.darius.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * 验证码结果对象
+ * 验证码生成结果参数
  */
 @Data
 @Accessors(chain = true)
-@Schema(name = "验证码结果对象", description = "验证码结果对象")
+@Schema(name = "验证码生成结果参数", description = "验证码生成结果参数")
 public class CaptchaVO {
 
     /**

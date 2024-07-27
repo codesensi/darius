@@ -1,8 +1,8 @@
 package cn.codesensi.darius.common.strategy;
 
-import cn.codesensi.darius.business.dto.CaptchaDTO;
+import cn.codesensi.darius.system.dto.CaptchaDTO;
 import cn.codesensi.darius.common.enums.CaptchaStrategyType;
-import cn.codesensi.darius.business.vo.CaptchaVO;
+import cn.codesensi.darius.system.vo.CaptchaVO;
 import cn.codesensi.darius.common.exception.SystemException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

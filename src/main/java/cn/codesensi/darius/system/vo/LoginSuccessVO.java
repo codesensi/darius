@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.vo;
+package cn.codesensi.darius.system.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -8,14 +8,14 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 登录成功后信息
+ * 登录成功结果参数
  *
  * @author codesensi
  * @since 2024/1/21 15:39
  */
 @Data
 @Accessors(chain = true)
-@Schema(name = "登录成功后信息", description = "登录成功后信息")
+@Schema(name = "登录成功结果参数", description = "登录成功结果参数")
 public class LoginSuccessVO implements Serializable {
 
     @Serial

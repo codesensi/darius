@@ -1,12 +1,12 @@
-package cn.codesensi.darius.business.controller;
+package cn.codesensi.darius.system.controller;
 
-import cn.codesensi.darius.business.dto.AccountUserDTO;
-import cn.codesensi.darius.business.dto.CaptchaDTO;
-import cn.codesensi.darius.business.service.AuthService;
-import cn.codesensi.darius.common.strategy.CaptchaStrategyContext;
-import cn.codesensi.darius.business.vo.CaptchaVO;
-import cn.codesensi.darius.business.vo.LoginSuccessVO;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
+import cn.codesensi.darius.common.strategy.CaptchaStrategyContext;
+import cn.codesensi.darius.system.dto.AccountUserDTO;
+import cn.codesensi.darius.system.dto.CaptchaDTO;
+import cn.codesensi.darius.system.service.LoginService;
+import cn.codesensi.darius.system.vo.CaptchaVO;
+import cn.codesensi.darius.system.vo.LoginSuccessVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -15,19 +15,19 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 账号鉴权 前端控制器
+ * 开放接口 前端控制器
  *
  * @author codesensi
  * @since 2024-07-21 11:09:56
  */
 @ApiResponseBody
 @RestController
-@Tag(name = "账号鉴权接口", description = "账号鉴权接口")
-@RequestMapping("/auth")
-public class AuthController {
+@Tag(name = "开放接口", description = "开放接口")
+@RequestMapping()
+public class OpenController {
 
     @Resource
-    private AuthService authService;
+    private LoginService loginService;
     @Resource
     private CaptchaStrategyContext captchaStrategyContext;
 
@@ -36,8 +36,8 @@ public class AuthController {
      */
     @Operation(summary = "账号密码登录")
     @PostMapping("/login/account")
-    public LoginSuccessVO account(@Validated @RequestBody AccountUserDTO accountUserDTO) {
-        return authService.account(accountUserDTO);
+    public LoginSuccessVO loginAccount(@Validated @RequestBody AccountUserDTO accountUserDTO) {
+        return loginService.loginAccount(accountUserDTO);
     }
 
     /**

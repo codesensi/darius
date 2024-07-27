@@ -20,7 +20,7 @@ public class BaseController {
         if (dariusProperties.getDemoMode()) {
             // 增删改 请求
             if (RequestMethod.PUT.getCode().equals(request.getMethod()) || RequestMethod.POST.getCode().equals(request.getMethod()) || RequestMethod.DELETE.getCode().equals(request.getMethod())) {
-                throw new ModeException("演示模式，不允许操作");
+                throw new ModeException("演示模式不允许操作哦~");
             }
         }
     }

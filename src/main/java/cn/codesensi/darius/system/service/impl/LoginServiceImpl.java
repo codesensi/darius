@@ -1,32 +1,27 @@
-package cn.codesensi.darius.business.service.impl;
+package cn.codesensi.darius.system.service.impl;
 
-import cn.codesensi.darius.business.dto.AccountUserDTO;
-import cn.codesensi.darius.business.service.AuthService;
-import cn.codesensi.darius.business.service.CaffeineService;
-import cn.codesensi.darius.business.vo.LoginSuccessVO;
 import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.AuthException;
 import cn.codesensi.darius.common.properties.DariusProperties;
+import cn.codesensi.darius.system.dto.AccountUserDTO;
 import cn.codesensi.darius.system.entity.SysUser;
+import cn.codesensi.darius.system.service.CaffeineService;
 import cn.codesensi.darius.system.service.ISysUserService;
+import cn.codesensi.darius.system.service.LoginService;
+import cn.codesensi.darius.system.vo.LoginSuccessVO;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * 账号鉴权接口实现
- *
- * @author codesensi
- * @since 2024-07-21 11:22:32
+ * 登录接口实现
  */
-@Slf4j
 @Service
-public class AuthServiceImpl implements AuthService {
+public class LoginServiceImpl implements LoginService {
 
     @Resource
     private DariusProperties dariusProperties;
@@ -42,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
      * @return 登录成功后信息
      */
     @Override
-    public LoginSuccessVO account(@Validated @RequestBody AccountUserDTO accountUserDTO) {
+    public LoginSuccessVO loginAccount(@Validated @RequestBody AccountUserDTO accountUserDTO) {
         // 校验验证码
         if (dariusProperties.getCaptcha().getEnabled()) {
             if (StrUtil.isBlank(accountUserDTO.getCaptchaKey())) {
@@ -72,5 +67,4 @@ public class AuthServiceImpl implements AuthService {
         loginSuccessVO.setAccessToken(StpUtil.getTokenValue());
         return loginSuccessVO;
     }
-
 }

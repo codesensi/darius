@@ -1,4 +1,4 @@
-package cn.codesensi.darius.business.dto;
+package cn.codesensi.darius.system.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -9,14 +9,14 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 账号密码登录DTO对象
+ * 账号密码登录参数
  *
  * @author codesensi
  * @since 2024-07-21 11:09:56
  */
 @Data
 @Accessors(chain = true)
-@Schema(name = "登录DTO对象", description = "登录DTO对象")
+@Schema(name = "账号密码登录参数", description = "账号密码登录参数")
 public class AccountUserDTO implements Serializable {
 
     @Serial
