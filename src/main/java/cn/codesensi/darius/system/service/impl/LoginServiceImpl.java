@@ -1,6 +1,6 @@
 package cn.codesensi.darius.system.service.impl;
 
-import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
+import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.AuthException;
 import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.codesensi.darius.system.dto.AccountUserDTO;

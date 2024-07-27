@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.strategy;
+package cn.codesensi.darius.system.strategy.captcha;
 
 import cn.codesensi.darius.common.enums.CaptchaStrategyType;
 import cn.codesensi.darius.common.exception.SystemException;

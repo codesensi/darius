@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.cache.caffeine;
+package cn.codesensi.darius.common.config.caffeine;
 
 import lombok.Getter;
 

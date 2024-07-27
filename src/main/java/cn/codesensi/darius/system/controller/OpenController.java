@@ -1,7 +1,7 @@
 package cn.codesensi.darius.system.controller;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
-import cn.codesensi.darius.common.strategy.CaptchaStrategyContext;
+import cn.codesensi.darius.system.strategy.captcha.CaptchaStrategyContext;
 import cn.codesensi.darius.system.dto.AccountUserDTO;
 import cn.codesensi.darius.system.dto.CaptchaDTO;
 import cn.codesensi.darius.system.service.LoginService;

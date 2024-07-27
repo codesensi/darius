@@ -1,6 +1,6 @@
 package cn.codesensi.darius.system.service.impl;
 
-import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
+import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.system.entity.SysMenu;
 import cn.codesensi.darius.system.mapper.SysMenuMapper;

@@ -2,7 +2,6 @@ package cn.codesensi.darius.common.task;
 
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.util.SpringUtil;
-import cn.codesensi.darius.common.util.TaskUtil;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.TimerTask;

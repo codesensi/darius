@@ -1,11 +1,11 @@
-package cn.codesensi.darius.common.strategy.impl;
+package cn.codesensi.darius.system.strategy.captcha.impl;
 
 import cn.codesensi.darius.system.dto.CaptchaDTO;
 import cn.codesensi.darius.system.service.CaffeineService;
 import cn.codesensi.darius.system.vo.CaptchaVO;
-import cn.codesensi.darius.common.cache.caffeine.CaffeineConstant;
+import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.SystemException;
-import cn.codesensi.darius.common.strategy.CaptchaStrategy;
+import cn.codesensi.darius.system.strategy.captcha.CaptchaStrategy;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import jakarta.annotation.Resource;

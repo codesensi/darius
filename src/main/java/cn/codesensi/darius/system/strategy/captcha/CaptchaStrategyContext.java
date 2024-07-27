@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.strategy;
+package cn.codesensi.darius.system.strategy.captcha;
 
 import cn.codesensi.darius.system.dto.CaptchaDTO;
 import cn.codesensi.darius.common.enums.CaptchaStrategyType;

@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.cache.caffeine;
+package cn.codesensi.darius.common.config.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.caffeine.CaffeineCache;
