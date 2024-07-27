@@ -25,7 +25,9 @@ public enum ResultStatus {
     NOT_LOGIN(-1, "账号未登录"),
     ACCOUNT_FREEZE(-6, "账号被冻结"),
 
-    ;
+    // ---------- 参数缺失状态码 ----------
+    PARAMETER_MISSING(1001, "缺少必填参数"),
+    PARAMETER_VERIFY(1002, "参数校验不通过");
 
     /**
      * 状态码

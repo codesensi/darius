@@ -12,6 +12,7 @@ import cn.hutool.core.util.ObjUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -72,17 +73,26 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 参数缺失异常
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public Result<?> missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        log.error("参数缺失异常！原因是：{}", e.getMessage(), e);
+        return R.fail(ResultStatus.PARAMETER_MISSING);
+    }
+
+    /**
      * 参数校验异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<?> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         log.error("参数校验异常！原因是：{}", e.getMessage(), e);
         FieldError fieldError = e.getBindingResult().getFieldError();
-        String message = "参数校验不通过";
+        String message = ResultStatus.PARAMETER_VERIFY.getMessage();
         if (ObjUtil.isNotNull(fieldError)) {
             message = fieldError.getDefaultMessage();
         }
-        return R.fail(ResultStatus.FAIL.getCode(), message);
+        return R.fail(ResultStatus.PARAMETER_VERIFY.getCode(), message);
     }
 
     /**
