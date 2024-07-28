@@ -1,15 +1,15 @@
-package cn.codesensi.darius.system.enums;
+package cn.codesensi.darius.common.enums;
 
 import lombok.Getter;
 
 /**
- * 授权类型
+ * 操作类型
  *
  * @author codesensi
  * @since 2024/1/13 10:57
  */
 @Getter
-public enum AuthType {
+public enum OperateType {
 
     /**
      * 未知
@@ -17,19 +17,24 @@ public enum AuthType {
     OTHER(0, "未知"),
 
     /**
-     * 登录
+     * 新增
      */
-    LOGIN(1, "登录"),
+    INSERT(1, "新增"),
 
     /**
-     * 登出
+     * 更新
      */
-    LOGOUT(2, "登出"),
+    UPDATE(2, "更新"),
 
     /**
-     * 封禁
+     * 查询
      */
-    DISABLE(3, "封禁");
+    QUERY(3, "查询"),
+
+    /**
+     * 删除
+     */
+    DELETE(4, "删除");
 
     /**
      * 操作类型编码
@@ -41,7 +46,7 @@ public enum AuthType {
      */
     private final String message;
 
-    AuthType(Integer code, String message) {
+    OperateType(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

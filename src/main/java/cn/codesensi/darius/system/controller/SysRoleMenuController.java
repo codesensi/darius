@@ -2,7 +2,7 @@ package cn.codesensi.darius.system.controller;
 
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.base.BaseController;
-import cn.codesensi.darius.system.enums.OperateType;
+import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysRoleMenu;
 import cn.codesensi.darius.system.service.ISysRoleMenuService;
 import cn.hutool.core.util.ObjUtil;

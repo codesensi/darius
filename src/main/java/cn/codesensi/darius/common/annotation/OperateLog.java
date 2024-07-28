@@ -1,7 +1,7 @@
 package cn.codesensi.darius.common.annotation;
 
 
-import cn.codesensi.darius.system.enums.OperateType;
+import cn.codesensi.darius.common.enums.OperateType;
 
 import java.lang.annotation.*;
 

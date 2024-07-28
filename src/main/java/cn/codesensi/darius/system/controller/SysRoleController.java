@@ -3,7 +3,7 @@ package cn.codesensi.darius.system.controller;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.base.BaseController;
-import cn.codesensi.darius.system.enums.OperateType;
+import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.entity.SysRole;
 import cn.codesensi.darius.system.service.ISysRoleService;
 import cn.hutool.core.util.ObjUtil;

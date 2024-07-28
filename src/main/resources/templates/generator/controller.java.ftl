@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.base.BaseController;
-import cn.codesensi.darius.system.enums.OperateType;
+import cn.codesensi.darius.common.enums.OperateType;
 import ${package.Entity}.${entity};
 import org.springdoc.core.annotations.ParameterObject;
 import jakarta.annotation.Resource;

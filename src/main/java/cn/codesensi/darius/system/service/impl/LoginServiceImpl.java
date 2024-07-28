@@ -10,7 +10,7 @@ import cn.codesensi.darius.common.util.ServletUtil;
 import cn.codesensi.darius.system.dto.AccountUserDTO;
 import cn.codesensi.darius.system.entity.SysAuthLog;
 import cn.codesensi.darius.system.entity.SysUser;
-import cn.codesensi.darius.system.enums.AuthType;
+import cn.codesensi.darius.common.enums.AuthType;
 import cn.codesensi.darius.system.service.CaffeineService;
 import cn.codesensi.darius.system.service.ISysUserService;
 import cn.codesensi.darius.system.service.LoginService;

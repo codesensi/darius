@@ -4,7 +4,7 @@ import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.system.entity.SysAuthLog;
-import cn.codesensi.darius.system.enums.OperateType;
+import cn.codesensi.darius.common.enums.OperateType;
 import cn.codesensi.darius.system.service.ISysAuthLogService;
 import cn.hutool.core.util.ObjUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
