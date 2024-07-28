@@ -2,7 +2,7 @@ package cn.codesensi.darius.system.service.impl;
 
 import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.constant.Constant;
-import cn.codesensi.darius.common.exception.AuthException;
+import cn.codesensi.darius.common.exception.LoginException;
 import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.codesensi.darius.common.util.Ip2regionUtil;
 import cn.codesensi.darius.common.util.IpUtil;
@@ -52,25 +52,25 @@ public class LoginServiceImpl implements LoginService {
         // 校验验证码
         if (dariusProperties.getCaptcha().getEnabled()) {
             if (StrUtil.isBlank(accountUserDTO.getCaptchaKey())) {
-                throw new AuthException("验证码唯一标识为空");
+                throw new LoginException("验证码唯一标识为空");
             }
             if (StrUtil.isBlank(accountUserDTO.getCaptcha())) {
-                throw new AuthException("验证码为空");
+                throw new LoginException("验证码为空");
             }
             // 与缓存中的值对比
             String captchaText = (String) caffeineService.get(CaffeineConstant.CACHE_CAPTCHA, accountUserDTO.getCaptchaKey());
             if (!accountUserDTO.getCaptcha().equals(captchaText)) {
-                throw new AuthException("验证码错误");
+                throw new LoginException("验证码错误");
             }
         }
         SysUser sysUser = sysUserService.lambdaQuery()
                 .eq(SysUser::getUsername, accountUserDTO.getUsername())
                 .one();
         if (sysUser == null) {
-            throw new AuthException("账号不存在");
+            throw new LoginException("账号不存在");
         }
         if (!BCrypt.checkpw(accountUserDTO.getPassword(), sysUser.getPassword())) {
-            throw new AuthException("账号密码错误");
+            throw new LoginException("账号密码错误");
         }
         // 登录
         StpUtil.login(sysUser.getId());

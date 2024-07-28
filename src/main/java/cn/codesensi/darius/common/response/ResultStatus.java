@@ -22,10 +22,13 @@ public enum ResultStatus {
     INTERNAL_ERROR(500, "服务器内部错误"),
 
     // ---------- 账号状态码 ----------
+    ACCOUNT_ERROR(2000, "账号异常"),
     NOT_LOGIN(-1, "账号未登录"),
     ACCOUNT_FREEZE(-6, "账号被冻结"),
+    NOT_ROLE(2001, "角色权限不足"),
+    NOT_PERMIT(2002, "账号权限不足"),
 
-    // ---------- 参数缺失状态码 ----------
+    // ---------- 参数校验状态码 ----------
     PARAMETER_MISSING(1001, "缺少必须参数"),
     PARAMETER_VERIFY(1002, "参数校验不通过");
 

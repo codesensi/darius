@@ -1,15 +1,17 @@
 package cn.codesensi.darius.system.advice;
 
-import cn.codesensi.darius.common.response.ResultStatus;
-import cn.codesensi.darius.common.exception.AuthException;
+import cn.codesensi.darius.common.exception.LoginException;
 import cn.codesensi.darius.common.exception.BusinessException;
 import cn.codesensi.darius.common.exception.ModeException;
 import cn.codesensi.darius.common.exception.SystemException;
-import cn.codesensi.darius.common.response.Result;
 import cn.codesensi.darius.common.response.R;
+import cn.codesensi.darius.common.response.Result;
+import cn.codesensi.darius.common.response.ResultStatus;
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
+import cn.dev33.satoken.exception.SaTokenException;
 import cn.hutool.core.util.ObjUtil;
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -97,24 +99,37 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 账号鉴权异常
+     * 账号登录异常
      */
-    @ExceptionHandler(AuthException.class)
-    public Result<?> authExceptionHandler(AuthException e) {
-        log.error("账号鉴权异常！原因是：{}", e.getMessage(), e);
+    @ExceptionHandler(LoginException.class)
+    public Result<?> authExceptionHandler(LoginException e) {
+        log.error("账号登录异常！原因是：{}", e.getMessage(), e);
         return R.fail(ResultStatus.FAIL.getCode(), e.getMessage());
     }
 
     /**
-     * 账号状态异常
+     * 账号鉴权异常
      */
-    @ExceptionHandler(NotLoginException.class)
-    public Result<?> notLoginExceptionHandler(NotLoginException e) {
-        log.error("账号状态异常！原因是：{}", e.getMessage(), e);
-        if (NotLoginException.TOKEN_FREEZE.equals(e.getType())) {
-            return R.fail(ResultStatus.ACCOUNT_FREEZE);
+    @ExceptionHandler(SaTokenException.class)
+    public Result<?> saTokenExceptionHandler(SaTokenException e) {
+        log.error("账号鉴权异常！原因是：{}", e.getMessage(), e);
+        switch (e) {
+            case NotLoginException notLoginException -> {
+                if (NotLoginException.TOKEN_FREEZE.equals(notLoginException.getType())) {
+                    return R.fail(ResultStatus.ACCOUNT_FREEZE);
+                }
+                return R.fail(ResultStatus.NOT_LOGIN);
+            }
+            case NotRoleException ignored1 -> {
+                return R.fail(ResultStatus.NOT_ROLE);
+            }
+            case NotPermissionException ignored2 -> {
+                return R.fail(ResultStatus.NOT_PERMIT);
+            }
+            default -> {
+                return R.fail(ResultStatus.ACCOUNT_ERROR);
+            }
         }
-        return R.fail(ResultStatus.NOT_LOGIN);
     }
 
     /**
