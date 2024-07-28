@@ -38,9 +38,9 @@ public class SysOperateLog extends BaseEntity implements Serializable {
     private Long id;
 
     /**
-     * 操作类型:0-未知,1-登录,2-登出,3-新增,4-更新,5-查询,6-删除
+     * 操作类型:0-未知,1-新增,2-更新,3-查询,4-删除
      */
-    @Schema(description = "操作类型:0-未知,1-登录,2-登出,3-新增,4-更新,5-查询,6-删除")
+    @Schema(description = "操作类型:0-未知,1-新增,2-更新,3-查询,4-删除")
     private Integer operateType;
 
     /**
@@ -54,12 +54,6 @@ public class SysOperateLog extends BaseEntity implements Serializable {
      */
     @Schema(description = "操作描述")
     private String operateDescription;
-
-    /**
-     * 请求人
-     */
-    @Schema(description = "请求人")
-    private Long requestUser;
 
     /**
      * 请求时间

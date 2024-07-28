@@ -1,13 +1,14 @@
-package cn.codesensi.darius.common.aspect;
+package cn.codesensi.darius.system.aspect;
 
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.constant.Constant;
-import cn.codesensi.darius.common.task.TaskFactory;
-import cn.codesensi.darius.common.task.TaskManager;
+import cn.codesensi.darius.system.task.TaskFactory;
+import cn.codesensi.darius.system.task.TaskManager;
 import cn.codesensi.darius.common.util.Ip2regionUtil;
 import cn.codesensi.darius.common.util.IpUtil;
 import cn.codesensi.darius.common.util.ServletUtil;
 import cn.codesensi.darius.system.entity.SysOperateLog;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -113,8 +114,6 @@ public class OperateLogAspect {
                     }
                 });
                 // 请求
-                // TODO 请求人
-                operateLog.setRequestUser(null);
                 operateLog.setRequestTime(LocalDateTime.now());
                 String ipAddr = IpUtil.getIpAddr();
                 operateLog.setRequestIp(ipAddr);
@@ -136,8 +135,7 @@ public class OperateLogAspect {
                     operateLog.setErrorTime(LocalDateTime.now());
                     operateLog.setErrorMessage(throwable.getMessage());
                 }
-                // TODO 创建人
-                operateLog.setCreator(null);
+                operateLog.setCreator(StpUtil.getLoginIdAsLong());
                 // 异步保存数据库
                 TaskManager.me().execute(TaskFactory.recordOperateLog(operateLog));
             });

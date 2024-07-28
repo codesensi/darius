@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `sys_operate_log`
     `operate_type`        tinyint(1)    DEFAULT NULL COMMENT '操作类型:0-未知,1-登录,2-登出,3-新增,4-更新,5-查询,6-删除',
     `operate_message`     varchar(64)   DEFAULT NULL COMMENT '操作类型说明',
     `operate_description` varchar(256)  DEFAULT NULL COMMENT '操作描述',
-    `request_user`        bigint        DEFAULT NULL COMMENT '请求人',
     `request_time`        datetime      DEFAULT NULL COMMENT '请求时间',
     `request_ip`          varchar(64)   DEFAULT NULL COMMENT '请求IP',
     `request_area`        varchar(256)  DEFAULT NULL COMMENT '请求地区',

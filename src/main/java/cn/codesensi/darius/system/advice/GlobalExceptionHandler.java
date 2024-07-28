@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.advice;
+package cn.codesensi.darius.system.advice;
 
 import cn.codesensi.darius.common.response.ResultStatus;
 import cn.codesensi.darius.common.exception.AuthException;

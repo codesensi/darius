@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.advice;
+package cn.codesensi.darius.system.advice;
 
 import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.response.Result;

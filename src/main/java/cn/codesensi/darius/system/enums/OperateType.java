@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.enums;
+package cn.codesensi.darius.system.enums;
 
 import lombok.Getter;
 
@@ -17,34 +17,24 @@ public enum OperateType {
     OTHER(0, "未知"),
 
     /**
-     * 登录
-     */
-    LOGIN(1, "登录"),
-
-    /**
-     * 登出
-     */
-    LOGOUT(2, "登出"),
-
-    /**
      * 新增
      */
-    INSERT(3, "新增"),
+    INSERT(1, "新增"),
 
     /**
      * 更新
      */
-    UPDATE(4, "更新"),
+    UPDATE(2, "更新"),
 
     /**
      * 查询
      */
-    QUERY(5, "查询"),
+    QUERY(3, "查询"),
 
     /**
      * 删除
      */
-    DELETE(6, "删除");
+    DELETE(4, "删除");
 
     /**
      * 操作类型编码

@@ -28,7 +28,7 @@ public class CodeGenerator {
     private static final String AUTHOR = "codesensi"; // *作者
     private static final String PARENT = "cn.codesensi.darius"; // *父包名
     private static final String MODULE_NAME = "system"; // *父包模块名
-    private static final String TABLE_NAMES = "sys_operate_log,sys_user,sys_role,sys_menu,sys_user_role,sys_role_menu"; // *需要生成的表名,多张表用英文逗号分隔
+    private static final String TABLE_NAMES = "sys_auth_log"; // *需要生成的表名,多张表用英文逗号分隔
     private static final String[] TABLE_PREFIX = {"t_", "c_"}; // *过滤表前缀
     // *********************************************************以下部分不建议修改********************************************************************************
     private static final String OUTPUT_DIR = "src\\main\\java"; // 输出目录

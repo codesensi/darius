@@ -1,4 +1,4 @@
-package cn.codesensi.darius.common.satoken;
+package cn.codesensi.darius.common.config.satoken;
 
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.properties.DariusProperties;
