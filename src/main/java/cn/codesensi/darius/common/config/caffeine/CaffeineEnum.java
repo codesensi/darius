@@ -9,13 +9,17 @@ import lombok.Getter;
 public enum CaffeineEnum {
 
     /**
+     * 默认缓存
+     */
+    CACHE_DEFAULT(CaffeineConstant.CACHE_DEFAULT, CaffeineConstant.EXPIRE_DEFAULT),
+    /**
      * 验证码缓存
      */
-    CAPTCHA_IMAGE(CaffeineConstant.CACHE_CAPTCHA, CaffeineConstant.EXPIRE_5_MIN),
+    CACHE_CAPTCHA(CaffeineConstant.CACHE_CAPTCHA, CaffeineConstant.EXPIRE_5_MIN),
     /**
      * 用户缓存
      */
-    USER_ROLE(CaffeineConstant.CACHE_USER, CaffeineConstant.EXPIRE_DEFAULT),;
+    CACHE_USER(CaffeineConstant.CACHE_USER, CaffeineConstant.EXPIRE_DEFAULT),;
 
     /**
      * 缓存名称
