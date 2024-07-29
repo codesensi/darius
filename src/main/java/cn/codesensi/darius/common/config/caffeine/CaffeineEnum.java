@@ -19,7 +19,7 @@ public enum CaffeineEnum {
     /**
      * 用户缓存
      */
-    CACHE_USER(CaffeineConstant.CACHE_USER, CaffeineConstant.EXPIRE_DEFAULT),;
+    CACHE_USER(CaffeineConstant.CACHE_USER, CaffeineConstant.EXPIRE_DEFAULT);
 
     /**
      * 缓存名称
