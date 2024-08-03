@@ -30,7 +30,7 @@ public class CaptchaStrategyFactory {
     public CaptchaStrategy getCaptchaStrategy(CaptchaStrategyType captchaStrategyType) {
         if (!captchaStrategyMap.containsKey(captchaStrategyType.getClassName())) {
             log.error("没有对应的验证码策略类型：{}", captchaStrategyType.getCode());
-            throw new SystemException("没有对应的验证码策略类型");
+            throw new SystemException("验证码生成失败");
         }
         return captchaStrategyMap.get(captchaStrategyType.getClassName());
     }
