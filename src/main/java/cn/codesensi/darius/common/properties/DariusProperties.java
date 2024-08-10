@@ -26,23 +26,6 @@ public class DariusProperties {
     private Captcha captcha;
 
     /**
-     * 自定义sa-token配置
-     */
-    private SaToken saToken;
-
-    /**
-     * 自定义sa-token配置
-     */
-    @Data
-    public static class SaToken {
-
-        /**
-         * 不校验登录路径
-         */
-        private String loginNotMatchPath;
-    }
-
-    /**
      * 验证码
      */
     @Data

@@ -4,6 +4,7 @@ import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.api.dto.AccountUserDTO;
 import cn.codesensi.darius.api.service.LoginService;
 import cn.codesensi.darius.api.vo.LoginSuccessVO;
+import cn.dev33.satoken.annotation.SaIgnore;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -31,6 +32,7 @@ public class LoginController {
     /**
      * 账号密码登录
      */
+    @SaIgnore
     @Operation(summary = "账号密码登录")
     @PostMapping("/login/account")
     public LoginSuccessVO loginAccount(@Validated @RequestBody AccountUserDTO accountUserDTO) {

@@ -32,13 +32,9 @@ public class SaTokenConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 从配置文件中加载鉴权路径
-        DariusProperties.SaToken saToken = dariusProperties.getSaToken();
-        String loginNotMatchPath = saToken.getLoginNotMatchPath();
-        final String[] loginNotMatch = loginNotMatchPath.split(",");
         registry.addInterceptor(new SaInterceptor(handler -> {
             // 登录校验
-            SaRouter.match(Constant.ROOT_PATH).notMatch(Arrays.asList(loginNotMatch)).check(r -> StpUtil.checkLogin());
+            SaRouter.match(Constant.ROOT_PATH).notMatch(Constant.SWAGGER_PATH).check(r -> StpUtil.checkLogin());
             // 系统功能：超级管理员角色
             SaRouter.match(Constant.SYSTEM_PATH).check(r -> StpUtil.checkRole(Constant.ROLE_ADMIN_CODE));
         })).addPathPatterns(Constant.ROOT_PATH);

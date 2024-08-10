@@ -4,6 +4,7 @@ import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.api.dto.CaptchaDTO;
 import cn.codesensi.darius.api.strategy.captcha.CaptchaStrategyContext;
 import cn.codesensi.darius.api.vo.CaptchaVO;
+import cn.dev33.satoken.annotation.SaIgnore;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -31,6 +32,7 @@ public class CaptchaController {
     /**
      * 生成验证码
      */
+    @SaIgnore
     @Operation(summary = "生成验证码")
     @GetMapping("/captcha")
     public CaptchaVO captcha(@Validated @ParameterObject CaptchaDTO captchaDTO) {
