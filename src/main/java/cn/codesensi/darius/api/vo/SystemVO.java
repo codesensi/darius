@@ -5,6 +5,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 系统信息
@@ -26,5 +27,4 @@ public class SystemVO implements Serializable {
 
     private DiskVO disk;
 
-    private Long time;
 }

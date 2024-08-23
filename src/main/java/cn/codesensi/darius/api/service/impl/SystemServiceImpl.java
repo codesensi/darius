@@ -3,7 +3,9 @@ package cn.codesensi.darius.api.service.impl;
 import cn.codesensi.darius.api.service.SystemService;
 import cn.codesensi.darius.api.task.TaskUtil;
 import cn.codesensi.darius.api.vo.*;
+import cn.codesensi.darius.common.exception.SystemException;
 import cn.codesensi.darius.common.util.IpUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -16,6 +18,7 @@ import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 
 import java.lang.management.ManagementFactory;
+import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.Set;
 /**
  * 系统信息接口实现
  */
+@Slf4j
 @Service
 public class SystemServiceImpl implements SystemService {
 
@@ -92,15 +96,7 @@ public class SystemServiceImpl implements SystemService {
         long total = memory.getTotal();
         long available = memory.getAvailable();
         long used = total - available;
-
-        memoryInfo.setTotal(FormatUtil.formatBytes(total));
-        memoryInfo.setAvailable(FormatUtil.formatBytes(available));
-        memoryInfo.setUsed(FormatUtil.formatBytes(used));
-        String usageRate = "0";
-        if (total > 0 && used > 0) {
-            usageRate = df.format(used * 100d / total);
-        }
-        memoryInfo.setUsageRate(usageRate);
+        extracted(total, used, memoryInfo);
         return memoryInfo;
     }
 
@@ -112,16 +108,7 @@ public class SystemServiceImpl implements SystemService {
         VirtualMemory virtualMemory = memory.getVirtualMemory();
         long total = virtualMemory.getSwapTotal();
         long used = virtualMemory.getSwapUsed();
-        long available = total - used;
-
-        swapInfo.setTotal(FormatUtil.formatBytes(total));
-        swapInfo.setAvailable(FormatUtil.formatBytes(available));
-        swapInfo.setUsed(FormatUtil.formatBytes(used));
-        String usageRate = "0";
-        if (total > 0 && used > 0) {
-            usageRate = df.format(used * 100d / total);
-        }
-        swapInfo.setUsageRate(usageRate);
+        extracted(total, used, swapInfo);
         return swapInfo;
     }
 
@@ -149,16 +136,7 @@ public class SystemServiceImpl implements SystemService {
             }
         }
         long used = total - available;
-
-        diskInfo.setTotal(FormatUtil.formatBytes(total));
-        diskInfo.setAvailable(FormatUtil.formatBytes(available));
-        diskInfo.setUsed(FormatUtil.formatBytes(used));
-        String usageRate = "0";
-        if (total > 0 && used > 0) {
-            usageRate = df.format(used * 100d / total);
-        }
-        diskInfo.setUsageRate(usageRate);
-
+        extracted(total, used, diskInfo);
         return diskInfo;
     }
 
@@ -172,5 +150,24 @@ public class SystemServiceImpl implements SystemService {
         osInfo.setIp(IpUtil.getIpAddr());
         osInfo.setRuntime(System.currentTimeMillis() - time);
         return osInfo;
+    }
+
+    /**
+     * 获取通用信息
+     *
+     * @param total
+     * @param used
+     * @param baseVO
+     */
+    private void extracted(long total, long used, BaseVO baseVO) {
+        long available = total - used;
+        String usageRate = "0";
+        if (total > 0 && used > 0) {
+            usageRate = df.format(used * 100d / total);
+        }
+        baseVO.setTotal(FormatUtil.formatBytes(total));
+        baseVO.setAvailable(FormatUtil.formatBytes(available));
+        baseVO.setUsed(FormatUtil.formatBytes(used));
+        baseVO.setUsageRate(usageRate);
     }
 }
