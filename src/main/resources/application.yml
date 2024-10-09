@@ -13,7 +13,7 @@ spring:
     timeout-per-shutdown-phase: 60s
   # 缓存
   cache:
-    # caffeine 增加缓存，需在cn.codesensi.darius.common.cache.caffeine.CaffeineEnum中新增对应枚举
+    # caffeine 增加缓存，需在cn.codesensi.darius.common.config.caffeine.CaffeineEnum中新增对应枚举
     type: caffeine
 
 # logback日志配置
