@@ -3,7 +3,6 @@ package cn.codesensi.darius.api.service.impl;
 import cn.codesensi.darius.api.service.SystemService;
 import cn.codesensi.darius.api.task.TaskUtil;
 import cn.codesensi.darius.api.vo.*;
-import cn.codesensi.darius.common.exception.SystemException;
 import cn.codesensi.darius.common.util.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
 
 import java.lang.management.ManagementFactory;
-import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.List;

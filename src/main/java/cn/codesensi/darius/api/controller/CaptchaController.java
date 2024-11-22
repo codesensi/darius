@@ -1,9 +1,9 @@
 package cn.codesensi.darius.api.controller;
 
-import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.api.dto.CaptchaDTO;
 import cn.codesensi.darius.api.strategy.captcha.CaptchaStrategyContext;
 import cn.codesensi.darius.api.vo.CaptchaVO;
+import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.dev33.satoken.annotation.SaIgnore;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
