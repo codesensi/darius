@@ -59,7 +59,11 @@ public class IpUtil {
         if (StrUtil.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : getMultistageReverseProxyIp(ip);
+        // 内网IP
+        if (internalIp(ip)) {
+            return getHostIp();
+        }
+        return getMultistageReverseProxyIp(ip);
     }
 
     /**
@@ -70,7 +74,7 @@ public class IpUtil {
      */
     public static boolean internalIp(String ip) {
         byte[] addr = textToNumericFormatV4(ip);
-        return internalIp(addr) || "127.0.0.1".equals(ip);
+        return internalIp(addr) || "127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip);
     }
 
     /**
