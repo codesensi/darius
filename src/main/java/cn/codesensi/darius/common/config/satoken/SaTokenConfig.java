@@ -24,9 +24,6 @@ import java.util.Arrays;
 @Configuration
 public class SaTokenConfig implements WebMvcConfigurer {
 
-    @Resource
-    private DariusProperties dariusProperties;
-
     /**
      * 注册 Sa-Token 路由拦截器
      */

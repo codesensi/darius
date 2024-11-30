@@ -1,12 +1,10 @@
 package cn.codesensi.darius.api.service.impl;
 
 import cn.codesensi.darius.api.dto.AccountUserDTO;
-import cn.codesensi.darius.api.service.CaffeineService;
 import cn.codesensi.darius.api.service.LoginService;
 import cn.codesensi.darius.api.task.TaskFactory;
 import cn.codesensi.darius.api.task.TaskManager;
 import cn.codesensi.darius.api.vo.LoginSuccessVO;
-import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.common.enums.LoginMode;
 import cn.codesensi.darius.common.enums.LoginType;
@@ -39,8 +37,6 @@ public class LoginServiceImpl implements LoginService {
     private DariusProperties dariusProperties;
     @Resource
     private ISysUserService sysUserService;
-    @Resource
-    private CaffeineService caffeineService;
 
     /**
      * 账号密码登录
@@ -58,11 +54,7 @@ public class LoginServiceImpl implements LoginService {
             if (StrUtil.isBlank(accountUserDTO.getCaptcha())) {
                 throw new LoginException("验证码为空");
             }
-            // 与缓存中的值对比
-            String captchaText = (String) caffeineService.get(CaffeineConstant.CACHE_CAPTCHA, accountUserDTO.getCaptchaKey());
-            if (!accountUserDTO.getCaptcha().equals(captchaText)) {
-                throw new LoginException("验证码错误");
-            }
+            // TODO 与缓存中的值对比
         }
         SysUser sysUser = sysUserService.lambdaQuery()
                 .eq(SysUser::getUsername, accountUserDTO.getUsername())

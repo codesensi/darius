@@ -1,7 +1,6 @@
 package cn.codesensi.darius.api.strategy.captcha.impl;
 
 import cn.codesensi.darius.api.dto.CaptchaDTO;
-import cn.codesensi.darius.api.service.CaffeineService;
 import cn.codesensi.darius.api.vo.CaptchaVO;
 import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.SystemException;
@@ -26,8 +25,6 @@ public class ImageCaptcha implements CaptchaStrategy {
 
     @Resource
     private DariusProperties dariusProperties;
-    @Resource
-    private CaffeineService caffeineService;
 
     /**
      * 生成图形验证码
@@ -53,8 +50,7 @@ public class ImageCaptcha implements CaptchaStrategy {
             String text = captcha.text();
             String key = "image:" + UUID.fastUUID().toString(true);
             log.info("图形验证码唯一标识：{}，验证码内容：{}", key, text);
-            // 放入缓存
-            caffeineService.put(CaffeineConstant.CACHE_CAPTCHA, key, text, CaffeineConstant.EXPIRE_5_MIN);
+            // TODO 放入缓存
             // 返回结果
             captchaVO.setKey(key);
             captchaVO.setResult(captcha.toBase64());

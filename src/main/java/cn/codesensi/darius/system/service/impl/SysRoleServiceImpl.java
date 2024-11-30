@@ -1,12 +1,10 @@
 package cn.codesensi.darius.system.service.impl;
 
-import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.system.entity.SysRole;
 import cn.codesensi.darius.system.mapper.SysRoleMapper;
 import cn.codesensi.darius.system.service.ISysRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +25,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      * @param userId 用户id
      * @return 用户角色权限码
      */
-    @Cacheable(cacheNames = CaffeineConstant.CACHE_USER, key = "'role:' + #userId")
     @Override
     public List<String> listRoleCodeByUserId(Long userId) {
         // 超级管理员
