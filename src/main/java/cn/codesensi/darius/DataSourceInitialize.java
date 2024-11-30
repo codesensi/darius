@@ -79,7 +79,7 @@ public class DataSourceInitialize {
         // 查询表名判断是否需要初始化数据
         try (Connection connection = DriverManager.getConnection(propertiesUrl, dbProperties.getUsername(), dbProperties.getPassword());
              Statement statement = connection.createStatement()) {
-            ResultSet tableResult = statement.executeQuery("SELECT table_name FROM information_schema.TABLES WHERE table_name = 'sys_operate_log' AND table_schema = '" + databaseName + "'");
+            ResultSet tableResult = statement.executeQuery("SELECT table_name FROM information_schema.TABLES WHERE table_name = 'sys_config' AND table_schema = '" + databaseName + "'");
             if (tableResult.next()) {
                 log.info("|-----[数据初始化]初始数据已存在，无需初始化-----|");
                 return Boolean.FALSE;

@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponseBody
 @RestController
 @Tag(name = "登录日志表接口", description = "登录日志表接口")
-@RequestMapping("/system/sys-login-log")
+@RequestMapping("/sys/sys-login-log")
 public class SysLoginLogController extends BaseController {
 
     @Resource

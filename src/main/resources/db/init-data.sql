@@ -2,8 +2,29 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for sys_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_config`;
+CREATE TABLE IF NOT EXISTS `sys_config`
+(
+    `id`              bigint NOT NULL COMMENT '配置ID',
+    `init_flag`       tinyint(1)    DEFAULT '0' COMMENT '初始化标志:0-未初始化,1-已初始化',
+    `creator`         bigint        DEFAULT NULL COMMENT '创建人',
+    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `updater`         bigint        DEFAULT NULL COMMENT '更新人',
+    `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `delete_flag`     tinyint(1)    DEFAULT '0' COMMENT '删除标志:0-未删除,1-已删除',
+    `version`         int           DEFAULT '0' COMMENT '乐观锁版本号',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+DEFAULT CHARSET = utf8mb4
+COLLATE = utf8mb4_general_ci
+ROW_FORMAT = DYNAMIC COMMENT ='系统配置表';
+
+-- ----------------------------
 -- Table structure for sys_operate_log
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_operate_log`;
 CREATE TABLE IF NOT EXISTS `sys_operate_log`
 (
     `id`                  bigint NOT NULL COMMENT '日志ID',
@@ -41,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `sys_operate_log`
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE IF NOT EXISTS `sys_user`
 (
     `id`          bigint       NOT NULL COMMENT '用户ID',
@@ -70,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `sys_user`
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE IF NOT EXISTS `sys_role`
 (
     `id`          bigint      NOT NULL COMMENT '角色ID',
@@ -96,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `sys_role`
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE IF NOT EXISTS `sys_menu`
 (
     `id`             bigint      NOT NULL COMMENT '菜单ID',
@@ -126,6 +150,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu`
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE IF NOT EXISTS `sys_user_role`
 (
     `id`          bigint NOT NULL COMMENT '主键ID',
@@ -146,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `sys_user_role`
 -- ----------------------------
 -- Table structure for sys_role_permission
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE IF NOT EXISTS `sys_role_menu`
 (
     `id`          bigint NOT NULL COMMENT '主键ID',
@@ -163,11 +189,13 @@ CREATE TABLE IF NOT EXISTS `sys_role_menu`
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = DYNAMIC COMMENT ='角色菜单关联表';
 
+-- 系统配置
+INSERT INTO `darius_dev`.`sys_config` (`id`, `init_flag`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1862830668730335232, 1, NULL, NULL, 0, 0);
 -- 超级管理员
-INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1, 'admin', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '超级管理员', '110105197000000001', 'administrator@gmailcom', '18900000000', 0, 'https://lsky.codesensi.cn:1443/i/2024/02/06/65c242e1493f8.png', 0, 0, '超级管理员', 1, '2024-05-26 17:19:48', NULL, '2024-07-20 22:41:42', 0, 0);
+INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, 'admin', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '超级管理员', '110105197000000001', 'administrator@gmailcom', '18900000000', 0, 'https://lsky.codesensi.cn:1443/i/2024/02/06/65c242e1493f8.png', 0, 0, '超级管理员', 1, NULL, 0, 0);
 -- 超级管理员角色
-INSERT INTO `sys_role` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1815028207546576896, '超级管理员', 'admin', 0, '超级管理员', 0, 0, 0, '超级管理员', 1, '2024-07-21 22:17:46', NULL, '2024-07-21 22:17:46', 0, 0);
+INSERT INTO `sys_role` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1815028207546576896, '超级管理员', 'admin', 0, '超级管理员', 0, 0, 0, '超级管理员', 1, NULL, 0, 0);
 -- 用户角色关联
-INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `creator`, `create_time`, `updater`, `update_time`, `delete_flag`, `version`) VALUES (1815028599999238144, 1, 1815028207546576896, 1, '2024-07-21 22:19:01', NULL, '2024-07-21 22:19:01', 0, 0);
+INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1815028599999238144, 1, 1815028207546576896, 1, NULL,  0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

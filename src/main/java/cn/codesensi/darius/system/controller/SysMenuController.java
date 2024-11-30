@@ -31,7 +31,7 @@ import java.util.List;
 @ApiResponseBody
 @RestController
 @Tag(name = "菜单信息表接口", description = "菜单信息表接口")
-@RequestMapping("/system/sys-menu")
+@RequestMapping("/sys/sys-menu")
 public class SysMenuController extends BaseController {
 
     @Resource

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ApiResponseBody
 @RestController
 @Tag(name = "系统信息接口", description = "系统信息接口")
-@RequestMapping("/system")
+@RequestMapping("/sys")
 public class SystemController {
 
     @Resource
@@ -29,7 +29,7 @@ public class SystemController {
      * 获取系统信息
      */
     @Operation(summary = "获取系统信息")
-    @GetMapping("/info")
+    @GetMapping("/system/info")
     public SystemVO info() {
         return systemService.info();
     }

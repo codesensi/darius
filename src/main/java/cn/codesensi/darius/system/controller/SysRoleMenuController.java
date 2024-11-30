@@ -1,5 +1,6 @@
 package cn.codesensi.darius.system.controller;
 
+import cn.codesensi.darius.common.annotation.ApiResponseBody;
 import cn.codesensi.darius.common.annotation.OperateLog;
 import cn.codesensi.darius.common.base.BaseController;
 import cn.codesensi.darius.common.enums.OperateType;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +24,10 @@ import org.springframework.web.bind.annotation.*;
  * @author codesensi
  * @since 2024-05-15 22:09:57
  */
-// @ApiResponseBody
-// @RestController
-// @Tag(name = "角色菜单关联表接口", description = "角色菜单关联表接口")
-// @RequestMapping("/system/sys-role-menu")
+@ApiResponseBody
+@RestController
+@Tag(name = "角色菜单关联表接口", description = "角色菜单关联表接口")
+@RequestMapping("/sys/sys-role-menu")
 public class SysRoleMenuController extends BaseController {
 
     @Resource

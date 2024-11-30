@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 @ApiResponseBody
 @RestController
 @Tag(name = "用户信息表接口", description = "用户信息表接口")
-@RequestMapping("/system/sys-user")
+@RequestMapping("/sys/sys-user")
 public class SysUserController extends BaseController {
 
     @Resource

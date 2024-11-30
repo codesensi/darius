@@ -31,7 +31,7 @@ import java.util.List;
 @ApiResponseBody
 @RestController
 @Tag(name = "角色信息表接口", description = "角色信息表接口")
-@RequestMapping("/system/sys-role")
+@RequestMapping("/sys/sys-role")
 public class SysRoleController extends BaseController {
 
     @Resource
