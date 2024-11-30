@@ -1,11 +1,10 @@
 package cn.codesensi.darius.api.strategy.captcha.impl;
 
 import cn.codesensi.darius.api.dto.CaptchaDTO;
+import cn.codesensi.darius.api.strategy.captcha.CaptchaStrategy;
 import cn.codesensi.darius.api.vo.CaptchaVO;
-import cn.codesensi.darius.common.config.caffeine.CaffeineConstant;
 import cn.codesensi.darius.common.exception.SystemException;
 import cn.codesensi.darius.common.properties.DariusProperties;
-import cn.codesensi.darius.api.strategy.captcha.CaptchaStrategy;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.wf.captcha.ArithmeticCaptcha;
@@ -54,7 +53,8 @@ public class ImageCaptcha implements CaptchaStrategy {
             // 返回结果
             captchaVO.setKey(key);
             captchaVO.setResult(captcha.toBase64());
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
             log.error("图形验证码类型错误：{}", name);
             throw new SystemException("图形验证码生成失败");
         }

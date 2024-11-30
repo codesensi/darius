@@ -1,10 +1,12 @@
 package cn.codesensi.darius.system.service.impl;
 
+import cn.codesensi.darius.common.constant.CacheConstant;
 import cn.codesensi.darius.common.constant.Constant;
 import cn.codesensi.darius.system.entity.SysMenu;
 import cn.codesensi.darius.system.mapper.SysMenuMapper;
 import cn.codesensi.darius.system.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      * @param userId 用户id
      * @return 用户菜单权限码
      */
+    @Cacheable(cacheNames = CacheConstant.CACHE_USER, key ="'menu:' + #userId")
     @Override
     public List<String> listMenuCodeByUserId(Long userId) {
         // 超级管理员

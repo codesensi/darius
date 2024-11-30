@@ -49,7 +49,7 @@ public class Constant {
     /**
      * 系统管理接口路径
      */
-    public static final String SYSTEM_PATH = "/system/**";
+    public static final String SYSTEM_PATH = "/sys/**";
 
     /**
      * 超级管理员角色标识
