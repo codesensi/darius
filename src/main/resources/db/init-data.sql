@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `sys_user_role`
   ROW_FORMAT = DYNAMIC COMMENT ='用户角色关联表';
 
 -- 系统配置
-INSERT INTO `sys_config` (`id`, `init_flag`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, 1, NULL, NULL, 0, 0);
+INSERT INTO `sys_config` (`id`, `init_flag`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, 1, 1, NULL, 0, 0);
 -- 超级管理员
 INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email`, `phone`, `gender`, `avatar`, `type`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, 'admin', '$2a$10$Gw2T4jeYpwGEDCBbBKGPTuktW84axtujvQoFhlivm.dcAMKauDXky', '超级管理员', '110105197000000001', 'admin@gmail.com', '18900000000', 0, 'https://lsky.codesensi.cn:1443/i/2024/02/06/65c242e1493f8.png', 0, 0, '超级管理员', 1, NULL, 0, 0);
 -- 超级管理员角色
