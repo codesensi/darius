@@ -226,5 +226,19 @@ INSERT INTO `sys_user` (`id`, `username`, `password`, `nickname`, `idno`, `email
 INSERT INTO `sys_role` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, '超级管理员', 'admin', 0, '超级管理员', 0, 0, 0, '超级管理员', 1, NULL, 0, 0);
 -- 用户角色关联
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, 1, 1, 1, NULL, 0, 0);
+-- 权限数据
+INSERT INTO `sys_permission` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `icon`, `route_name`, `route_path`, `component_path`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, '首页', '', 0, '首页', 2, 0, NULL, 'index', '/index', '/index', 0, '首页', 1, NULL, 0, 0);
+INSERT INTO `sys_permission` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `icon`, `route_name`, `route_path`, `component_path`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (2, '用户管理', 'sys:user:page', 0, '用户管理', 2, 1, NULL, 'user', '/user', '/user', 0, '用户管理', 1, NULL, 0, 0);
+INSERT INTO `sys_permission` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `icon`, `route_name`, `route_path`, `component_path`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (201, '用户查询', 'sys:user:detail', 2, '用户查询', 3, 0, NULL, 'user-detail', '/user-detail', '/user-detail', 0, '用户查询', 1, NULL, 0, 0);
+INSERT INTO `sys_permission` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `icon`, `route_name`, `route_path`, `component_path`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (202, '用户新增', 'sys:user:save', 2, '用户新增', 3, 1, NULL, 'user-save', '/user-save', '/user-save', 0, '用户新增', 1, NULL, 0, 0);
+INSERT INTO `sys_permission` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `icon`, `route_name`, `route_path`, `component_path`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (203, '用户更新', 'sys:user:update', 2, '用户更新', 3, 2, NULL, 'user-update', '/user-update', '/user-update', 0, '用户更新', 1, NULL, 0, 0);
+INSERT INTO `sys_permission` (`id`, `name`, `code`, `pid`, `description`, `type`, `sort`, `icon`, `route_name`, `route_path`, `component_path`, `status`, `remark`, `creator`, `updater`, `delete_flag`, `version`) VALUES (204, '用户删除', 'sys:user:delete', 2, '用户删除', 3, 3, NULL, 'user-delete', '/user-delete', '/user-delete', 0, '用户删除', 1, NULL, 0, 0);
+-- 角色权限关联数据
+INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (1, 1, 1, 1, NULL, 0, 0);
+INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (2, 1, 2, 1, NULL, 0, 0);
+INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (3, 1, 201, 1, NULL, 0, 0);
+INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (4, 1, 202, 1, NULL, 0, 0);
+INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (5, 1, 203, 1, NULL, 0, 0);
+INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`, `creator`, `updater`, `delete_flag`, `version`) VALUES (6, 1, 204, 1, NULL, 0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
