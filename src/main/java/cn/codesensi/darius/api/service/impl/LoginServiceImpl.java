@@ -21,6 +21,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import eu.bitwalker.useragentutils.UserAgent;
 import jakarta.annotation.Resource;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,8 @@ public class LoginServiceImpl implements LoginService {
     private DariusProperties dariusProperties;
     @Resource
     private ISysUserService sysUserService;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 账号密码登录
@@ -51,10 +54,18 @@ public class LoginServiceImpl implements LoginService {
             if (StrUtil.isBlank(accountUserDTO.getCaptchaKey())) {
                 throw new LoginException("验证码唯一标识为空");
             }
-            if (StrUtil.isBlank(accountUserDTO.getCaptcha())) {
+            String captcha = accountUserDTO.getCaptcha();
+            if (StrUtil.isBlank(captcha)) {
                 throw new LoginException("验证码为空");
             }
-            // TODO 与缓存中的值对比
+            // 与缓存中的值对比
+            String captchaCache = stringRedisTemplate.opsForValue().get(accountUserDTO.getCaptchaKey());
+            if (StrUtil.isBlank(captchaCache)) {
+                throw new LoginException("验证码不存在");
+            }
+            if (!captcha.equals(captchaCache)) {
+                throw new LoginException("验证码错误");
+            }
         }
         SysUser sysUser = sysUserService.lambdaQuery()
                 .eq(SysUser::getUsername, accountUserDTO.getUsername())
