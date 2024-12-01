@@ -7,7 +7,7 @@ import cn.codesensi.darius.api.task.TaskManager;
 import cn.codesensi.darius.common.util.Ip2regionUtil;
 import cn.codesensi.darius.common.util.IpUtil;
 import cn.codesensi.darius.common.util.ServletUtil;
-import cn.codesensi.darius.system.entity.SysOperateLog;
+import cn.codesensi.darius.sys.entity.SysOperateLog;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -93,9 +93,9 @@ public class OperateLogAspect {
                 // 获取注解信息
                 OperateLog annotationLog = getAnnotationLog(joinPoint);
                 Optional.ofNullable(annotationLog).ifPresent(l -> {
-                    operateLog.setOperateType(l.operateType().getCode());
-                    operateLog.setOperateMessage(l.operateType().getMessage());
-                    operateLog.setOperateDescription(l.description());
+                    operateLog.setType(l.operateType().getCode());
+                    operateLog.setMessage(l.operateType().getMessage());
+                    operateLog.setDescription(l.description());
                     // 请求参数
                     if (l.isSaveRequestParam()) {
                         String[] names = ((CodeSignature) signature).getParameterNames();

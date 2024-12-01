@@ -1,10 +1,10 @@
 package cn.codesensi.darius.api.task;
 
 import cn.codesensi.darius.common.util.SpringUtil;
-import cn.codesensi.darius.system.entity.SysLoginLog;
-import cn.codesensi.darius.system.entity.SysOperateLog;
-import cn.codesensi.darius.system.service.ISysLoginLogService;
-import cn.codesensi.darius.system.service.ISysOperateLogService;
+import cn.codesensi.darius.sys.entity.SysLoginLog;
+import cn.codesensi.darius.sys.entity.SysOperateLog;
+import cn.codesensi.darius.sys.service.ISysLoginLogService;
+import cn.codesensi.darius.sys.service.ISysOperateLogService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.TimerTask;

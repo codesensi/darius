@@ -27,12 +27,12 @@ public class CodeGenerator {
     private static final String PASSWORD = "darius_dev_dnT9Eb"; // *数据库密码
     private static final String AUTHOR = "codesensi"; // *作者
     private static final String PARENT = "cn.codesensi.darius"; // *父包名
-    private static final String MODULE_NAME = "system"; // *父包模块名
-    private static final String TABLE_NAMES = "sys_config"; // *需要生成的表名,多张表用英文逗号分隔
+    private static final String MODULE_NAME = "tmp"; // *父包模块名
+    private static final String TABLE_NAMES = "sys_config,sys_login_log,sys_operate_log,sys_permission,sys_role,sys_role_permission,sys_user,sys_user_role"; // *需要生成的表名,多张表用英文逗号分隔
     private static final String[] TABLE_PREFIX = {"t_", "c_"}; // *过滤表前缀
     // *********************************************************以下部分不建议修改********************************************************************************
     private static final String OUTPUT_DIR = "src\\main\\java"; // 输出目录
-    private static final String PATH_INFO = "src\\main\\resources\\mapper\\" + MODULE_NAME; // mapperXml生成路径
+    // private static final String PATH_INFO = "src\\main\\resources\\mapper\\" + MODULE_NAME; // mapperXml生成路径
     private static final String CONTROLLER = "/templates/generator/controller.java"; // controller模板路径
     private static final String SERVICE = "/templates/generator/service.java"; // service模板路径
     private static final String SERVICE_IMPL = "/templates/generator/serviceImpl.java"; // serviceImpl模板路径
@@ -64,8 +64,8 @@ public class CodeGenerator {
                 }))
                 .packageConfig(builder -> {
                     builder.parent(PARENT) // 设置父包名
-                            .moduleName(MODULE_NAME) // 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, PATH_INFO)); // 设置mapperXml生成路径
+                            .moduleName(MODULE_NAME); // 设置父包模块名
+                            // .pathInfo(Collections.singletonMap(OutputFile.xml, PATH_INFO)); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude(TABLE_NAMES) // 设置需要生成的表名

@@ -13,9 +13,9 @@ import cn.codesensi.darius.common.properties.DariusProperties;
 import cn.codesensi.darius.common.util.Ip2regionUtil;
 import cn.codesensi.darius.common.util.IpUtil;
 import cn.codesensi.darius.common.util.ServletUtil;
-import cn.codesensi.darius.system.entity.SysLoginLog;
-import cn.codesensi.darius.system.entity.SysUser;
-import cn.codesensi.darius.system.service.ISysUserService;
+import cn.codesensi.darius.sys.entity.SysLoginLog;
+import cn.codesensi.darius.sys.entity.SysUser;
+import cn.codesensi.darius.sys.service.ISysUserService;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
@@ -72,17 +72,17 @@ public class LoginServiceImpl implements LoginService {
 
         // 异步记录登录成功日志
         SysLoginLog sysLoginLog = new SysLoginLog();
-        sysLoginLog.setLoginType(LoginType.LOGIN.getCode());
-        sysLoginLog.setLoginMode(LoginMode.ACCOUNT.getCode());
+        sysLoginLog.setType(LoginType.LOGIN.getCode());
+        sysLoginLog.setMode(LoginMode.ACCOUNT.getCode());
         sysLoginLog.setLoginTime(LocalDateTime.now());
         String ipAddr = IpUtil.getIpAddr();
-        sysLoginLog.setLoginIp(ipAddr);
-        sysLoginLog.setLoginArea(Ip2regionUtil.search(ipAddr));
+        sysLoginLog.setIp(ipAddr);
+        sysLoginLog.setArea(Ip2regionUtil.search(ipAddr));
         UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtil.getUserAgent());
-        sysLoginLog.setLoginOs(userAgent.getOperatingSystem().getName());
-        sysLoginLog.setLoginDevice(userAgent.getOperatingSystem().getDeviceType().getName());
-        sysLoginLog.setLoginBrowser(userAgent.getBrowser().getName());
-        sysLoginLog.setLoginState(Constant.ONE_INT);
+        sysLoginLog.setOs(userAgent.getOperatingSystem().getName());
+        sysLoginLog.setDevice(userAgent.getOperatingSystem().getDeviceType().getName());
+        sysLoginLog.setBrowser(userAgent.getBrowser().getName());
+        sysLoginLog.setState(Constant.ONE_INT);
         sysLoginLog.setCreator(StpUtil.getLoginIdAsLong());
         TaskManager.me().execute(TaskFactory.recordAuthLog(sysLoginLog));
         return loginSuccessVO;
