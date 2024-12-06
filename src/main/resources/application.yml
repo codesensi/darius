@@ -92,6 +92,8 @@ sa-token:
   token-style: random-128
   # 是否输出操作日志
   is-log: true
+  # jwt秘钥
+  jwt-secret-key: f3c55ed9e4f54edfa8867f904aef6742
 
 # 项目配置
 darius:
