@@ -30,9 +30,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     public List<String> listPermissionCodeByUserId(Long userId) {
         // 超级管理员
-        if (Constant.ADMIN_ID.equals(userId)) {
-            return List.of(Constant.PERMIT_ADMIN_CODE);
-        }
+        // if (Constant.ADMIN_ID.equals(userId)) {
+        //     return List.of(Constant.PERMIT_ADMIN_CODE);
+        // }
         return baseMapper.listPermissionCodeByUserId(userId);
     }
 }

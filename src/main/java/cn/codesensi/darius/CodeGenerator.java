@@ -32,7 +32,7 @@ public class CodeGenerator {
     private static final String[] TABLE_PREFIX = {"t_", "c_"}; // *过滤表前缀
     // *********************************************************以下部分不建议修改********************************************************************************
     private static final String OUTPUT_DIR = "src\\main\\java"; // 输出目录
-    // private static final String PATH_INFO = "src\\main\\resources\\mapper\\" + MODULE_NAME; // mapperXml生成路径
+    private static final String PATH_INFO = "src\\main\\resources\\mapper\\" + MODULE_NAME; // mapperXml生成路径
     private static final String CONTROLLER = "/templates/generator/controller.java"; // controller模板路径
     private static final String SERVICE = "/templates/generator/service.java"; // service模板路径
     private static final String SERVICE_IMPL = "/templates/generator/serviceImpl.java"; // serviceImpl模板路径
@@ -64,8 +64,8 @@ public class CodeGenerator {
                 }))
                 .packageConfig(builder -> {
                     builder.parent(PARENT) // 设置父包名
-                            .moduleName(MODULE_NAME); // 设置父包模块名
-                            // .pathInfo(Collections.singletonMap(OutputFile.xml, PATH_INFO)); // 设置mapperXml生成路径
+                            .moduleName(MODULE_NAME) // 设置父包模块名
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, PATH_INFO)); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude(TABLE_NAMES) // 设置需要生成的表名
